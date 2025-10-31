@@ -1,0 +1,149 @@
+
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local Stats = game:GetService("Stats")
+local TweenService = game:GetService("TweenService")
+local LocalPlayer = Players.LocalPlayer
+local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+
+
+local function getSafeSessionTime()
+	local serverTime = workspace.DistributedGameTime or 0
+	if serverTime < 0 or serverTime > 24*3600 then
+		return 0
+	end
+	return serverTime
+end
+
+local ProtectedSessionStart = tick() - getSafeSessionTime()
+setreadonly(getfenv(), true)
+
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "FoOptimizerGUI_"..math.random(1000,9999)
+ScreenGui.ResetOnSpawn = false
+ScreenGui.IgnoreGuiInset = true
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGui.Parent = PlayerGui
+
+local MainFrame = Instance.new("Frame")
+MainFrame.Parent = ScreenGui
+MainFrame.Size = UDim2.new(0, 280, 0, 240)
+MainFrame.Position = UDim2.new(0.5, -140, 0.5, -120)
+MainFrame.BackgroundColor3 = Color3.fromRGB(20,20,20)
+MainFrame.BorderSizePixel = 0
+MainFrame.Active = true
+MainFrame.Draggable = true
+MainFrame.ClipsDescendants = true
+MainFrame.ZIndex = 2
+MainFrame.BackgroundTransparency = 1
+Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 12)
+TweenService:Create(MainFrame,TweenInfo.new(0.8),{BackgroundTransparency = 0.05}):Play()
+
+
+local Title = Instance.new("TextLabel", MainFrame)
+Title.Text = "سكربت تعديل البنق + انفو  محمي من صنع فارس" 
+Title.Size = UDim2.new(1, -20, 0, 30)
+Title.Position = UDim2.new(0, 10, 0, 5)
+Title.TextColor3 = Color3.fromRGB(220,220,220)
+Title.BackgroundTransparency = 1
+Title.Font = Enum.Font.Gotham
+Title.TextSize = 18
+
+
+local function createInput(parent, placeholder, posY)
+	local tb = Instance.new("TextBox", parent)
+	tb.PlaceholderText = placeholder
+	tb.Text = ""
+	tb.Position = UDim2.new(0, 10, 0, posY)
+	tb.Size = UDim2.new(1, -20, 0, 30)
+	tb.BackgroundColor3 = Color3.fromRGB(35,35,35)
+	tb.TextColor3 = Color3.fromRGB(255,255,255)
+	tb.Font = Enum.Font.Gotham
+	tb.TextSize = 16
+	tb.TextScaled = true
+	Instance.new("UICorner", tb).CornerRadius = UDim.new(0,6)
+	return tb
+end
+
+local RepInput = createInput(MainFrame, "ReplicationLag (0 - 1e9)", 45)
+local DataInput = createInput(MainFrame, "DataLimit (0 - 1e9)", 85)
+
+
+local ApplyButton = Instance.new("TextButton", MainFrame)
+ApplyButton.Text = "تم"
+ApplyButton.Position = UDim2.new(0, 10, 0, 125)
+ApplyButton.Size = UDim2.new(1, -20, 0, 30)
+ApplyButton.BackgroundColor3 = Color3.fromRGB(50,120,220)
+ApplyButton.TextColor3 = Color3.fromRGB(255,255,255)
+ApplyButton.Font = Enum.Font.Gotham
+ApplyButton.TextSize = 16
+Instance.new("UICorner", ApplyButton).CornerRadius = UDim.new(0,6)
+
+local function addHover(button, normal, hover)
+	button.MouseEnter:Connect(function()
+		TweenService:Create(button, TweenInfo.new(0.2), {BackgroundColor3 = hover}):Play()
+	end)
+	button.MouseLeave:Connect(function()
+		TweenService:Create(button, TweenInfo.new(0.2), {BackgroundColor3 = normal}):Play()
+	end)
+end
+addHover(ApplyButton, Color3.fromRGB(50,120,220), Color3.fromRGB(70,150,255))
+
+
+local FixedText = Instance.new("TextLabel", MainFrame)
+FixedText.Position = UDim2.new(0,10,0,160)
+FixedText.Size = UDim2.new(1,-20,0,20)
+FixedText.TextColor3 = Color3.fromRGB(255,255,255)
+FixedText.Font = Enum.Font.Gotham
+FixedText.TextSize = 16
+FixedText.BackgroundTransparency = 1
+FixedText.Text = "تقدر تزور التايمر ب سكربت عجب من 1 ساعه ل 23 ساعه فقط اكتر من هيك ما تقدر بسبب الحمايه خلي الجدد يفرحون ب 23 ساعه ههه و اعلى عدد ل لبنق هو 10 الاف"
+FixedText.TextScaled = true
+
+local StatsLabel = Instance.new("TextLabel", MainFrame)
+StatsLabel.Position = UDim2.new(0,10,0,185)
+StatsLabel.Size = UDim2.new(1,-20,0,45)
+StatsLabel.TextColor3 = Color3.fromRGB(200,200,200)
+StatsLabel.TextSize = 14
+StatsLabel.Font = Enum.Font.Code
+StatsLabel.BackgroundTransparency = 1
+StatsLabel.TextScaled = true
+
+
+local function applySettings()
+	local rep = tonumber(RepInput.Text)
+	local dat = tonumber(DataInput.Text)
+
+	if rep and rep >=0 and rep <=1e9 then
+		settings():GetService("NetworkSettings").IncomingReplicationLag = rep
+	end
+
+	if dat and dat >=0 and dat <=1e9 then
+		local Net = cloneref(game:GetService("NetworkClient"))
+		Net:SetOutgoingKBPSLimit(dat)
+	end
+end
+ApplyButton.MouseButton1Click:Connect(applySettings)
+
+
+task.spawn(function()
+	while task.wait(1) do
+		local serverTime = getSafeSessionTime()
+		local clientTime = tick() - ProtectedSessionStart
+		if math.abs(clientTime - serverTime) > 5 then
+			ProtectedSessionStart = tick() - 0
+		end
+
+		local pingStat = Stats.Network.ServerStatsItem["Data Ping"]
+		local ping = pingStat and math.floor(pingStat:GetValue()) or 0
+		local fps = math.floor(1 / RunService.RenderStepped:Wait())
+		local currentTime = tick() - ProtectedSessionStart
+		local h = math.floor(currentTime / 3600)
+		local m = math.floor((currentTime % 3600)/60)
+		local s = math.floor(currentTime%60)
+		local timeText = string.format("%02d:%02d:%02d",h,m,s)
+		StatsLabel.Text = string.format("Ping: %d ms | FPS: %d | Session: %s",ping,fps,timeText)
+	end
+end)
