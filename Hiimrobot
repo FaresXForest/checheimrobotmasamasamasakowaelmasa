@@ -1,149 +1,234 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
+local Window = Rayfield:CreateWindow({
+   Name = "DH SCRIPT BY DEXTER",
+   Icon = 0,
+   LoadingTitle = "جاري التحقق من المفتاح...",
+   LoadingSubtitle = "by Sirius",
+   ShowText = "Rayfield",
+   Theme = "Default",
+   ToggleUIKeybind = "K",
 
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil,
+      FileName = "Big Hub"
+   },
+
+   Discord = {
+      Enabled = false,
+      Invite = "noinvitelink",
+      RememberJoins = true
+   },
+
+   KeySystem = true,
+   KeySettings = {
+      Title = "نظام الدخول",
+      Subtitle = "من فضلك أدخل المفتاح الصحيح",
+      Note = "المفتاح هو: OMK 7LWA",
+      FileName = "SZ_KeySave",
+      SaveKey = true,
+      GrabKeyFromSite = false,
+      Key = {"DEXTER_up8"} -- هنا المفتاح الحقيقي
+   }
+})
+
+local Tab = Window:CreateTab("صمله", 4483362458)
+Tab:CreateSection("SCRIPTS FOR SMLA")
+
+Rayfield:Notify({
+   Title = "تم التحقق من المفتاح ✅",
+   Content = "تم تشغيل السكربت بنجاح",
+   Duration = 5,
+})
+Tab:CreateButton({Name = "Antiafk", Callback = function() loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-AntiAFK-System-SOLARA-21775"))() end})
+Tab:CreateButton({Name = "info", Callback = function() loadstring(game:HttpGet("https://pastebin.com/raw/fp0JPhVX"))() end})
+Tab:CreateButton({Name = "BY DEXTER", Callback = function()
+loadstring(game:HttpGet("https://pastebin.com/raw/dV2JC6Rc"))() end})
+Tab:CreateButton({Name = "FO FARES", Callback = function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/FaresXForest/FARESxMAX/refs/heads/main/MAX/FARES/x/UP)"))() end})
+Tab:CreateButton({Name = "PASS fares_up5", Callback = function() end})
+
+Tab:CreateButton({Name = "منع سخونيه الهاتف", Callback = function()
+-- GhostPreserver v10 Lite | فارس & FO Team Edition | Roblox Anti-Disconnect System
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
-local Stats = game:GetService("Stats")
-local TweenService = game:GetService("TweenService")
-local LocalPlayer = Players.LocalPlayer
-local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
+local VirtualUser = game:GetService("VirtualUser")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
+local player = Players.LocalPlayer
 
-local function getSafeSessionTime()
-	local serverTime = workspace.DistributedGameTime or 0
-	if serverTime < 0 or serverTime > 24*3600 then
-		return 0
-	end
-	return serverTime
-end
-
-local ProtectedSessionStart = tick() - getSafeSessionTime()
-setreadonly(getfenv(), true)
-
-
-local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "FoOptimizerGUI_"..math.random(1000,9999)
+-- GUI واجهة تحكم
+local ScreenGui = Instance.new("ScreenGui", player.PlayerGui)
 ScreenGui.ResetOnSpawn = false
-ScreenGui.IgnoreGuiInset = true
-ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-ScreenGui.Parent = PlayerGui
 
-local MainFrame = Instance.new("Frame")
-MainFrame.Parent = ScreenGui
-MainFrame.Size = UDim2.new(0, 280, 0, 240)
-MainFrame.Position = UDim2.new(0.5, -140, 0.5, -120)
-MainFrame.BackgroundColor3 = Color3.fromRGB(20,20,20)
-MainFrame.BorderSizePixel = 0
-MainFrame.Active = true
-MainFrame.Draggable = true
-MainFrame.ClipsDescendants = true
-MainFrame.ZIndex = 2
-MainFrame.BackgroundTransparency = 1
-Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 12)
-TweenService:Create(MainFrame,TweenInfo.new(0.8),{BackgroundTransparency = 0.05}):Play()
+local Frame = Instance.new("Frame", ScreenGui)
+Frame.Size = UDim2.new(0, 250, 0, 120)
+Frame.Position = UDim2.new(0.7, 0, 0.75, 0)
+Frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Frame.BackgroundTransparency = 0.3
+Frame.Active = true
+Frame.Draggable = true
+Frame.BorderSizePixel = 2
 
+local Button = Instance.new("TextButton", Frame)
+Button.Size = UDim2.new(1, 0, 0.5, 0)
+Button.Position = UDim2.new(0, 0, 0, 0)
+Button.Text = "GhostPreserver: OFF"
+Button.TextColor3 = Color3.new(1, 1, 1)
+Button.BackgroundTransparency = 0.4
 
-local Title = Instance.new("TextLabel", MainFrame)
-Title.Text = "سكربت تعديل البنق + انفو  محمي من صنع فارس" 
-Title.Size = UDim2.new(1, -20, 0, 30)
-Title.Position = UDim2.new(0, 10, 0, 5)
-Title.TextColor3 = Color3.fromRGB(220,220,220)
-Title.BackgroundTransparency = 1
-Title.Font = Enum.Font.Gotham
-Title.TextSize = 18
+local Status = Instance.new("TextLabel", Frame)
+Status.Size = UDim2.new(1, 0, 0.5, 0)
+Status.Position = UDim2.new(0, 0, 0.5, 0)
+Status.Text = "Status: Inactive"
+Status.TextColor3 = Color3.new(1, 0, 0)
+Status.BackgroundTransparency = 1
+Status.Font = Enum.Font.SourceSansBold
+Status.TextScaled = true
 
-
-local function createInput(parent, placeholder, posY)
-	local tb = Instance.new("TextBox", parent)
-	tb.PlaceholderText = placeholder
-	tb.Text = ""
-	tb.Position = UDim2.new(0, 10, 0, posY)
-	tb.Size = UDim2.new(1, -20, 0, 30)
-	tb.BackgroundColor3 = Color3.fromRGB(35,35,35)
-	tb.TextColor3 = Color3.fromRGB(255,255,255)
-	tb.Font = Enum.Font.Gotham
-	tb.TextSize = 16
-	tb.TextScaled = true
-	Instance.new("UICorner", tb).CornerRadius = UDim.new(0,6)
-	return tb
-end
-
-local RepInput = createInput(MainFrame, "ReplicationLag (0 - 1e9)", 45)
-local DataInput = createInput(MainFrame, "DataLimit (0 - 1e9)", 85)
-
-
-local ApplyButton = Instance.new("TextButton", MainFrame)
-ApplyButton.Text = "تم"
-ApplyButton.Position = UDim2.new(0, 10, 0, 125)
-ApplyButton.Size = UDim2.new(1, -20, 0, 30)
-ApplyButton.BackgroundColor3 = Color3.fromRGB(50,120,220)
-ApplyButton.TextColor3 = Color3.fromRGB(255,255,255)
-ApplyButton.Font = Enum.Font.Gotham
-ApplyButton.TextSize = 16
-Instance.new("UICorner", ApplyButton).CornerRadius = UDim.new(0,6)
-
-local function addHover(button, normal, hover)
-	button.MouseEnter:Connect(function()
-		TweenService:Create(button, TweenInfo.new(0.2), {BackgroundColor3 = hover}):Play()
-	end)
-	button.MouseLeave:Connect(function()
-		TweenService:Create(button, TweenInfo.new(0.2), {BackgroundColor3 = normal}):Play()
-	end)
-end
-addHover(ApplyButton, Color3.fromRGB(50,120,220), Color3.fromRGB(70,150,255))
-
-
-local FixedText = Instance.new("TextLabel", MainFrame)
-FixedText.Position = UDim2.new(0,10,0,160)
-FixedText.Size = UDim2.new(1,-20,0,20)
-FixedText.TextColor3 = Color3.fromRGB(255,255,255)
-FixedText.Font = Enum.Font.Gotham
-FixedText.TextSize = 16
-FixedText.BackgroundTransparency = 1
-FixedText.Text = "تقدر تزور التايمر ب سكربت عجب من 1 ساعه ل 23 ساعه فقط اكتر من هيك ما تقدر بسبب الحمايه خلي الجدد يفرحون ب 23 ساعه ههه و اعلى عدد ل لبنق هو 10 الاف"
-FixedText.TextScaled = true
-
-local StatsLabel = Instance.new("TextLabel", MainFrame)
-StatsLabel.Position = UDim2.new(0,10,0,185)
-StatsLabel.Size = UDim2.new(1,-20,0,45)
-StatsLabel.TextColor3 = Color3.fromRGB(200,200,200)
-StatsLabel.TextSize = 14
-StatsLabel.Font = Enum.Font.Code
-StatsLabel.BackgroundTransparency = 1
-StatsLabel.TextScaled = true
-
-
-local function applySettings()
-	local rep = tonumber(RepInput.Text)
-	local dat = tonumber(DataInput.Text)
-
-	if rep and rep >=0 and rep <=1e9 then
-		settings():GetService("NetworkSettings").IncomingReplicationLag = rep
-	end
-
-	if dat and dat >=0 and dat <=1e9 then
-		local Net = cloneref(game:GetService("NetworkClient"))
-		Net:SetOutgoingKBPSLimit(dat)
-	end
-end
-ApplyButton.MouseButton1Click:Connect(applySettings)
-
-
-task.spawn(function()
-	while task.wait(1) do
-		local serverTime = getSafeSessionTime()
-		local clientTime = tick() - ProtectedSessionStart
-		if math.abs(clientTime - serverTime) > 5 then
-			ProtectedSessionStart = tick() - 0
+-- Rainbow Text Effect (خفيف)
+local function RainbowEffect(textLabel)
+	task.spawn(function()
+		while true do
+			for i = 0, 1, 0.01 do
+				textLabel.TextColor3 = Color3.fromHSV(i, 1, 1)
+				task.wait(0.1)  -- تخفيف الضغط
+			end
 		end
+	end)
+end
 
-		local pingStat = Stats.Network.ServerStatsItem["Data Ping"]
-		local ping = pingStat and math.floor(pingStat:GetValue()) or 0
-		local fps = math.floor(1 / RunService.RenderStepped:Wait())
-		local currentTime = tick() - ProtectedSessionStart
-		local h = math.floor(currentTime / 3600)
-		local m = math.floor((currentTime % 3600)/60)
-		local s = math.floor(currentTime%60)
-		local timeText = string.format("%02d:%02d:%02d",h,m,s)
-		StatsLabel.Text = string.format("Ping: %d ms | FPS: %d | Session: %s",ping,fps,timeText)
+RainbowEffect(Status)
+
+-- الوظائف الأساسية
+local GhostPreserverEnabled = false
+local LastHeartbeat = tick()
+
+-- Remote Event حماية Heartbeat
+local function FireHeartbeat()
+	local remote = ReplicatedStorage:FindFirstChildOfClass("RemoteEvent")
+	if remote then
+		remote:FireServer("Heartbeat")
+	end
+end
+
+-- Loop حماية (Optimized)
+RunService.RenderStepped:Connect(function()
+	if GhostPreserverEnabled then
+		if tick() - LastHeartbeat >= 5 then  -- كل 5 ثواني فقط
+			FireHeartbeat()
+			player:SetAttribute("ActiveSim", math.random())
+			LastHeartbeat = tick()
+		end
 	end
 end)
+
+-- حماية من AFK Timeout (Roblox Idle)
+Players.LocalPlayer.Idled:Connect(function()
+	if GhostPreserverEnabled then
+		VirtualUser:CaptureController()
+		VirtualUser:ClickButton2(Vector2.new(0,0))
+	end
+end)
+
+-- زرار تشغيل/إيقاف النظام
+Button.MouseButton1Click:Connect(function()
+	GhostPreserverEnabled = not GhostPreserverEnabled
+	Button.Text = GhostPreserverEnabled and "GhostPreserver: ON" or "GhostPreserver: OFF"
+	Status.Text = GhostPreserverEnabled and "Status: Active - فارس & FO" or "Status: Inactive"
+end)
+
+print("GhostPreserver v10 Lite by فارس & FO Team | Loaded Successfully") end})
+Tab:CreateButton({Name = "يقلل الفريمات و يحسن الهاتف", Callback = function()
+--[[
+    Data Saver Hardcore v5 - Ultimate Hook Edition
+    Developed by FO FARES & TEAM FO
+    اصمل علي ضمانتي
+--]]
+
+local Players = game:GetService("Players")
+local Lighting = game:GetService("Lighting")
+local SoundService = game:GetService("SoundService")
+local RunService = game:GetService("RunService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local LocalPlayer = Players.LocalPlayer
+
+-- Disable Visual Effects
+local function disableVisuals()
+    Lighting.GlobalShadows = false
+    Lighting.FogEnd = 1000000
+    Lighting.Brightness = 0
+
+    for _, v in pairs(workspace:GetDescendants()) do
+        if v:IsA("Decal") or v:IsA("Texture") then
+            v:Destroy()
+        elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+            v:Destroy()
+        
+        end
+    end
+
+end
+
+-- Hook Network Calls for Packet Throttling and Blocking
+local mt = getrawmetatable(game)
+setreadonly(mt, false)
+local oldNamecall = mt.__namecall
+local lastPacketSent = 0
+
+mt.__namecall = newcclosure(function(self, ...)
+    local method = getnamecallmethod()
+    if method == "FireServer" or method == "InvokeServer" then
+        if tick() - lastPacketSent < 5 then
+            return -- Block packet if within throttle window (5 seconds)
+        end
+        lastPacketSent = tick()
+    end
+    return oldNamecall(self, ...)
+end)
+
+-- Disable Replication of New Instances
+workspace.DescendantAdded:Connect(function(obj)
+    if obj:IsA("Part") or obj:IsA("MeshPart") or obj:IsA("UnionOperation") then
+        obj:Destroy()
+    end
+end)
+
+-- Disable Character Animations Replication
+RunService.Stepped:Connect(function()
+    if LocalPlayer.Character then
+        for _, anim in pairs(LocalPlayer.Character:GetDescendants()) do
+            if anim:IsA("Animator") then
+                anim:Destroy()
+            end
+        end
+    end
+end)
+
+-- Physics Throttling (reducing physics update rate drastically)
+settings().Physics.ThrottleAdjustTime = 10 -- Default is 0.5
+settings().Physics.AllowSleep = true
+
+-- Continuous Visual Cleanup
+RunService.Heartbeat:Connect(function()
+    disableVisuals()
+end)
+
+print("Data Saver Hardcore v5 Loaded: Extreme Network Throttling Active. Replication Blocked. Visuals Disabled.") end})
+Tab:CreateButton({Name = "انفنتي ", Callback = function() 
+loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))() end})
+Tab:CreateButton({Name = "تفعيل", Callback = function() 
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Ndora1/Ndora1/main/Nokia%20Hub.lua'))() end}) 
+
+local Tab = Window:CreateTab("قائمة", 4483362458)
+Tab:CreateSection("AWAMR")
+
+Tab:CreateButton({Name = "ANTIKICK", Callback = function() end})
+Tab:CreateButton({Name = "ANTIAFK", Callback = function() end})
+Tab:CreateButton({Name = "SANDBOX", Callback = function() end} 
+Tab:CreateButton({Name = "ANTICRACH", Callback = function() end})
+Tab:CreateButton({Name = "FR", Callback = function() end})
+Tab:CreateButton({Name = "AMTTOOL", Callback = function() end})
+Tab:CreateButton({Name = "DATALIMIT 0", Callback = function() end})
