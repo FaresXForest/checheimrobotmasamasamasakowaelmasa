@@ -1,5 +1,4 @@
--- تحميل مكتبة Rayfield
-local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
    Name = "DH SCRIPT BY DEXTER",
@@ -228,7 +227,7 @@ Tab:CreateSection("AWAMR")
 
 Tab:CreateButton({Name = "ANTIKICK", Callback = function() end})
 Tab:CreateButton({Name = "ANTIAFK", Callback = function() end})
-Tab:CreateButton({Name = "SANDBOX", Callback = function() end} 
+Tab:CreateButton({Name = "SANDBOX", Callback = function() end})
 Tab:CreateButton({Name = "ANTICRACH", Callback = function() end})
 Tab:CreateButton({Name = "FR", Callback = function() end})
 Tab:CreateButton({Name = "AMTTOOL", Callback = function() end})
