@@ -1,7 +1,7 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-   Name = "DH SCRIPT BY DEXTER",
+   Name = "DH SCRIPT BY SULTAN",
    Icon = 0,
    LoadingTitle = "جاري التحقق من المفتاح...",
    LoadingSubtitle = "by Sirius",
@@ -23,13 +23,13 @@ local Window = Rayfield:CreateWindow({
 
    KeySystem = true,
    KeySettings = {
-      Title = "نظام الدخول",
+      Title = "  لازم تسجل من اجل عمك سلطان)نظام الدخول)",
       Subtitle = "من فضلك أدخل المفتاح الصحيح",
-      Note = "المفتاح هو: OMK 7LWA",
+      Note = "المفتاح هو: SULTAN_3MK",
       FileName = "SZ_KeySave",
       SaveKey = true,
       GrabKeyFromSite = false,
-      Key = {"DEXTER_up8"} -- هنا المفتاح الحقيقي
+      Key = {"SULTAN_3MK"} -- هنا المفتاح الحقيقي
    }
 })
 
@@ -223,7 +223,7 @@ Tab:CreateButton({Name = "تفعيل", Callback = function()
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Ndora1/Ndora1/main/Nokia%20Hub.lua'))() end}) 
 
 local Tab = Window:CreateTab("قائمة", 4483362458)
-Tab:CreateSection("AWAMR")
+Tab:CreateSection("اوامر")
 
 Tab:CreateButton({Name = "ANTIKICK", Callback = function() end})
 Tab:CreateButton({Name = "ANTIAFK", Callback = function() end})
