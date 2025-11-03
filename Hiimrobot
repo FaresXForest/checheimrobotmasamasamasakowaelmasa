@@ -1,7 +1,7 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-   Name = "DH SCRIPT BY SULTAN",
+   Name = "DH SCRIPT BY Sarabi",
    Icon = 0,
    LoadingTitle = "جاري التحقق من المفتاح...",
    LoadingSubtitle = "by Sirius",
@@ -23,13 +23,13 @@ local Window = Rayfield:CreateWindow({
 
    KeySystem = true,
    KeySettings = {
-      Title = "  لازم تسجل من اجل عمك سلطان)نظام الدخول)",
+      Title = "  لازم تسجل )نظام الدخول)",
       Subtitle = "من فضلك أدخل المفتاح الصحيح",
-      Note = "المفتاح هو: SULTAN_3MK",
+      Note = "المفتاح هو: Al-Sarrabi ON TOP",
       FileName = "SZ_KeySave",
       SaveKey = true,
       GrabKeyFromSite = false,
-      Key = {"SULTAN_3MK"} -- هنا المفتاح الحقيقي
+      Key = {"Al-Sarrabi ON TOP"} -- هنا المفتاح الحقيقي
    }
 })
 
@@ -222,7 +222,7 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/
 Tab:CreateButton({Name = "تفعيل", Callback = function() 
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Ndora1/Ndora1/main/Nokia%20Hub.lua'))() end}) 
 
-local Tab = Window:CreateTab("قائمة", 4483362458)
+local Tab = Window:CreateTab("اوامر بتفيدك حطها في سكربت انفنتي", 4483362458)
 Tab:CreateSection("اوامر")
 
 Tab:CreateButton({Name = "ANTIKICK", Callback = function() end})
@@ -235,7 +235,7 @@ Tab:CreateButton({Name = "DATALIMIT 0", Callback = function() end})
 
 
 
-local Tab = Window:CreateTab("قائمة", 4483362458)
+local Tab = Window:CreateTab("سكربتات صمله بتفيدك", 4483362458)
 Tab:CreateSection("SMLH SCRIPTS")
 
 -- سكربت حربي1
