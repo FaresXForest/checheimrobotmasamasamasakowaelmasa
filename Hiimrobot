@@ -232,3 +232,428 @@ Tab:CreateButton({Name = "ANTICRACH", Callback = function() end})
 Tab:CreateButton({Name = "FR", Callback = function() end})
 Tab:CreateButton({Name = "AMTTOOL", Callback = function() end})
 Tab:CreateButton({Name = "DATALIMIT 0", Callback = function() end})
+
+
+
+local Tab = Window:CreateTab("قائمة", 4483362458)
+Tab:CreateSection("SMLH SCRIPTS")
+
+-- سكربت حربي1
+Tab:CreateButton({
+    Name = "سكربت حربي",
+    Callback = function()
+        loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-AntiAFK-v-AntiKick-V3-v-Kick-Attempt-Logger-27977"))()
+    end
+})
+
+-- سكربت antiafk تجريبي من صنع فارس2
+Tab:CreateButton({
+    Name = "AntiAFK تجريبي من صنع فارس",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/FaresXForest/afk/refs/heads/main/SMLH200%23/smlh322%23/bestantiafk"))()
+    end
+})
+
+-- سكربت 120 فريم 3
+Tab:CreateButton({
+    Name = "120 FPS",
+    Callback = function()
+        while task.wait(35) do
+            setfpscap(120)
+        end
+    end
+})
+
+-- سكربت يمنع الطرد تجريبي 4
+Tab:CreateButton({
+    Name = "منع الطرد التجريبي",
+    Callback = function()
+        local UserInputService = game:GetService("UserInputService")
+local Players = game:GetService("Players")
+local localPlayer = Players.LocalPlayer
+local PlayerGui = localPlayer:WaitForChild("PlayerGui")
+local RunService = game:GetService("RunService")
+
+-- إعداد واجهة المستخدم
+local ScreenGui = Instance.new("ScreenGui", PlayerGui)
+local Frame = Instance.new("Frame", ScreenGui)
+Frame.Size = UDim2.new(0, 300, 0, 200)
+Frame.Position = UDim2.new(0.5, -150, 0.5, -100)
+Frame.BackgroundColor3 = Color3.new(0, 0, 0)
+Frame.BackgroundTransparency = 0.5
+
+local Title = Instance.new("TextLabel", Frame)
+Title.Size = UDim2.new(1, 0, 0, 30)
+Title.Text = "مضاد الطرد قيد التشغيل"
+Title.TextColor3 = Color3.new(1, 1, 1)
+Title.BackgroundTransparency = 1
+
+local Status = Instance.new("TextLabel", Frame)
+Status.Size = UDim2.new(1, 0, 0, 30)
+Status.Position = UDim2.new(0, 0, 0, 40)
+Status.TextColor3 = Color3.new(1, 1, 0)
+Status.BackgroundTransparency = 1
+
+-- إعداد التحكم باللمس لتحريك واجهة المستخدم
+local dragging = false
+local dragStart = Vector2.new()
+local startPos = UDim2.new()
+
+local function update(input)
+    local delta = input.Position - dragStart
+    Frame.Position = UDim2.new(0, startPos.X.Offset + delta.X, 0, startPos.Y.Offset + delta.Y)
+end
+
+Frame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        dragStart = input.Position
+        startPos = Frame.Position
+    end
+end)
+
+UserInputService.TouchMoved:Connect(function(input)
+    if dragging then
+        update(input)
+    end
+end)
+
+UserInputService.TouchEnded:Connect(function(input)
+    if dragging then
+        dragging = false
+    end
+end)
+
+-- الوظيفة للتحقق من الطرد
+local function checkKick()
+    while wait(1) do
+        -- تحقق من أنماط الطرد
+        if localPlayer.PlayerGui:FindFirstChild("YourKickSignal") then
+            Status.Text = "تحذير: محاولة طرد!"
+            if localPlayer.Character and localPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                localPlayer.Character.HumanoidRootPart.Anchored = true
+                wait(0.1)
+                localPlayer.Character.HumanoidRootPart.Anchored = false
+                -- منع الحركة
+                localPlayer.Character.Humanoid.PlatformStand = true
+                wait(0.5)
+                localPlayer.Character.Humanoid.PlatformStand = false
+            end
+        else
+            Status.Text = "كل شيء على ما يرام"
+        end
+    end
+end
+
+-- تنفيذ الوظيفة في خيط منفصل
+coroutine.wrap(checkKick)()
+
+-- إضافة الحقوق إلى السكربت
+local rights = Instance.new("TextLabel", Frame)
+rights.Size = UDim2.new(1, 0, 0, 30)
+rights.Position = UDim2.new(0, 0, 0, 140)
+rights.TextColor3 = Color3.new(1, 0, 0)
+rights.BackgroundTransparency = 1
+rights.Text = "حقوق فارس و تيم FO"
+
+-- تحسين الأداء
+RunService.RenderStepped:Connect(function()
+    if localPlayer.Character and localPlayer.Character:FindFirstChild("Humanoid") then
+        localPlayer.Character.Humanoid.PlatformStand = false
+    end
+end)
+
+-- إعدادات الشبكة
+local function onNetworkQualityChanged()
+    local quality = game:GetService("NetworkServer").NetworkQuality
+    if quality < 3 then
+        Status.Text = "تحذير: جودة الشبكة منخفضة!"
+    end
+end
+
+game:GetService("NetworkServer").NetworkQualityChanged:Connect(onNetworkQualityChanged)
+
+-- كشف محاولات الطرد المتقدمة
+local function detectAdvancedKicks()
+    while true do
+        wait(1)
+        -- تحقق من الأنماط الأخرى
+        if false then -- استبدل بـ شروط كشف محاولات الطرد المتقدمة
+            Status.Text = "تحذير: محاولة طرد متقدمة!"
+        end
+    end
+end
+
+coroutine.wrap(detectAdvancedKicks)()
+    end
+})
+
+-- سكربت طيران من صنع فارس تجريبي 5
+Tab:CreateButton({
+    Name = "طيران تجريبي من صنع فارس",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/FaresXForest/FLYV4-FLYV4../refs/heads/main/FLYv4/FLYVV4/credits%20fares322%23"))()
+    end
+})
+
+-- سكربت antiafk تجريبي لجهاز قوي 6
+Tab:CreateButton({
+    Name = "AntiAFK لازم جهاز قوي",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/FaresXForest/ANTITRADE/refs/heads/main/MONEY"))()
+    end
+})
+
+-- سكربت antiafk مشهور 7
+Tab:CreateButton({
+    Name = "AntiAFK مشهور",
+    Callback = function()
+        wait(0.5)
+        local ba=Instance.new("ScreenGui")
+        local ca=Instance.new("TextLabel")
+        local da=Instance.new("Frame")
+        local _b=Instance.new("TextLabel")
+        local ab=Instance.new("TextLabel")
+        ba.Parent=game.CoreGui
+        ba.ZIndexBehavior=Enum.ZIndexBehavior.Sibling
+        ca.Parent=ba
+        ca.Active=true
+        ca.BackgroundColor3=Color3.new(0.176471,0.176471,0.176471)
+        ca.Draggable=true
+        ca.Position=UDim2.new(0.698610067,0,0.098096624,0)
+        ca.Size=UDim2.new(0,370,0,52)
+        ca.Font=Enum.Font.SourceSansSemibold
+        ca.Text="Anti AFK Script"
+        ca.TextColor3=Color3.new(255,255,0)
+        ca.TextSize=22
+        da.Parent=ca
+        da.BackgroundColor3=Color3.new(0.196078,0.196078,0.196078)
+        da.Position=UDim2.new(0,0,1.0192306,0)
+        da.Size=UDim2.new(0,370,0,107)
+        _b.Parent=da
+        _b.BackgroundColor3=Color3.new(0,0,0)
+        _b.Position=UDim2.new(0,0,0.800455689,0)
+        _b.Size=UDim2.new(0,370,0,21)
+        _b.Font=Enum.Font.Arial
+        _b.Text=" Pyro Vlad ON YT "
+        _b.TextColor3=Color3.new(0,204,0)
+        _b.TextSize=20
+        ab.Parent=da
+        ab.BackgroundColor3=Color3.new(0.176471,0.176471,0.176471)
+        ab.Position=UDim2.new(0,0,0.158377,0)
+        ab.Size=UDim2.new(0,370,0,44)
+        ab.Font=Enum.Font.ArialBold
+        ab.Text="Anti:Afk Active"
+        ab.TextColor3=Color3.new(255,0,0)
+        ab.TextSize=20
+        local bb=game:service'VirtualUser'
+        game:service'Players'.LocalPlayer.Idled:connect(function()
+            bb:CaptureController()
+            bb:ClickButton2(Vector2.new())
+            ab.Text="Roblox tried to kick u but i kicked him instead"
+            wait(2)
+            ab.Text="Status : Active"
+        end)
+    end
+})
+
+-- سكربت antiafk خطير 8
+Tab:CreateButton({
+    Name = "AntiAFK  خطير",
+    Callback = function()
+       -- سكربت الصمله الأسطوري - من تطوير فارس و تيم FO
+
+local Players = game:GetService("Players")
+local VirtualUser = game:GetService("VirtualUser")
+local player = Players.LocalPlayer
+
+-- إعداد الواجهة
+local gui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+gui.Name = "LegendarySurvivalSystem"
+gui.ResetOnSpawn = false
+
+-- واجهة رئيسية
+local main = Instance.new("Frame", gui)
+main.Size = UDim2.new(0.9, 0, 0.7, 0)
+main.Position = UDim2.new(0.05, 0, 0.15, 0)
+main.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+main.BorderSizePixel = 2
+main.Active = true
+main.Draggable = true
+
+local title = Instance.new("TextLabel", main)
+title.Size = UDim2.new(1, 0, 0.1, 0)
+title.Text = "نظام الصمله الأسطوريه | فارس و تيم FO"
+title.Font = Enum.Font.Arcade
+title.TextScaled = true
+title.BackgroundTransparency = 1
+
+-- تأثير قوس قزح
+task.spawn(function()
+	while true do
+		local t = tick()
+		local r = math.sin(t) * 0.5 + 0.5
+		local g = math.sin(t + 2) * 0.5 + 0.5
+		local b = math.sin(t + 4) * 0.5 + 0.5
+		title.TextColor3 = Color3.new(r, g, b)
+		wait(0.1)
+	end
+end)
+
+-- AntiAFK
+local afkEnabled = false
+local afkConnection
+local function toggleAFK(state)
+	if state and not afkEnabled then
+		afkConnection = Players.LocalPlayer.Idled:Connect(function()
+			VirtualUser:Button1Down(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
+		end)
+		afkEnabled = true
+	else
+		if afkConnection then afkConnection:Disconnect() end
+		afkEnabled = false
+	end
+end
+
+-- تقليل الرام
+local function autoClean()
+	while true do
+		game:FindService("Lighting").FogEnd = math.huge
+		game:FindService("Lighting").GlobalShadows = false
+		collectgarbage("collect")
+		wait(60)
+	end
+end
+task.spawn(autoClean)
+
+
+local startTime = tick()
+local timer = Instance.new("TextLabel", main)
+timer.Position = UDim2.new(0, 0, 0.12, 0)
+timer.Size = UDim2.new(1, 0, 0.1, 0)
+timer.BackgroundTransparency = 1
+timer.Font = Enum.Font.Code
+timer.TextColor3 = Color3.new(0, 1, 0)
+timer.TextScaled = true
+task.spawn(function()
+	while true do
+		local elapsed = tick() - startTime
+		local hours = math.floor(elapsed / 3600)
+		local minutes = math.floor((elapsed % 3600) / 60)
+		timer.Text = "مدة صمله: " .. hours .. " ساعة و " .. minutes .. " دقيقة"
+		wait(60)
+	end
+end)
+
+-- زر تفعيل AntiAFK
+local afkBtn = Instance.new("TextButton", main)
+afkBtn.Position = UDim2.new(0.05, 0, 0.3, 0)
+afkBtn.Size = UDim2.new(0.9, 0, 0.12, 0)
+afkBtn.Text = "تشغيل AntiAFK"
+afkBtn.Font = Enum.Font.SourceSansBold
+afkBtn.TextScaled = true
+afkBtn.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+afkBtn.TextColor3 = Color3.new(0, 1, 0)
+afkBtn.MouseButton1Click:Connect(function()
+	toggleAFK(true)
+	afkBtn.Text = "تم تشغيل AntiAFK"
+end)
+
+
+local safeBtn = Instance.new("TextButton", main)
+safeBtn.Position = UDim2.new(0.05, 0, 0.45, 0)
+safeBtn.Size = UDim2.new(0.9, 0, 0.12, 0)
+safeBtn.Text = "تفعيل الحماية من الكراش"
+safeBtn.Font = Enum.Font.SourceSansBold
+safeBtn.TextScaled = true
+safeBtn.BackgroundColor3 = Color3.fromRGB(20, 0, 0)
+safeBtn.TextColor3 = Color3.new(1, 0, 0)
+safeBtn.MouseButton1Click:Connect(function()
+	setfpscap(30)
+	settings().Rendering.QualityLevel = Enum.QualityLevel.Level01
+	workspace.Terrain.WaterTransparency = 1
+	workspace.Terrain.WaterReflectance = 0
+end)
+
+-- زر إخفاء
+local closeBtn = Instance.new("TextButton", main)
+closeBtn.Size = UDim2.new(0, 40, 0, 40)
+closeBtn.Position = UDim2.new(1, -45, 0, 5)
+closeBtn.Text = "X"
+closeBtn.Font = Enum.Font.SourceSansBold
+closeBtn.TextScaled = true
+closeBtn.TextColor3 = Color3.new(1, 0, 0)
+closeBtn.BackgroundColor3 = Color3.new(0, 0, 0)
+closeBtn.BorderColor3 = Color3.new(1, 0, 0)
+closeBtn.MouseButton1Click:Connect(function()
+	main.Visible = false
+end)
+
+-- زر استدعاء
+local recallBtn = Instance.new("TextButton", gui)
+recallBtn.Size = UDim2.new(0, 100, 0, 35)
+recallBtn.Position = UDim2.new(0.88, 0, 0.9, 0)
+recallBtn.Text ="•OPEN•"
+recallBtn.Font = Enum.Font.Arcade
+recallBtn.TextColor3 = Color3.fromRGB(255, 215, 0) -- ذهبي
+recallBtn.BackgroundColor3 = Color3.fromRGB(50, 40, 0)
+recallBtn.BorderColor3 = Color3.fromRGB(255, 223, 0)
+recallBtn.TextScaled = true
+recallBtn.MouseButton1Click:Connect(function()
+	main.Visible = true
+end)
+
+-- تأثير لمعان ذهبي
+local uis = game:GetService("UserInputService")
+task.spawn(function()
+	while true do
+		local t = tick()
+		recallBtn.TextColor3 = Color3.fromHSV((t % 5) / 5, 0.8, 1)
+		recallBtn.BorderColor3 = Color3.fromHSV((t % 5) / 5, 0.8, 1)
+		wait(0.1)
+	end
+end)
+
+    end
+})
+
+-- سكربت بنق 20 (9)
+Tab:CreateButton({
+    Name = "Ping 20",
+    Callback = function()
+        local PerformanceStats = game:GetService("CoreGui"):WaitForChild("RobloxGui"):WaitForChild("PerformanceStats")
+        local PingLabel
+        for _, Child in next, PerformanceStats:GetChildren() do
+            if Child:FindFirstChild("StatsMiniTextPanelClass") then
+                local Title = Child.StatsMiniTextPanelClass:FindFirstChild("TitleLabel")
+                if Title and Title.Text == "Ping" then
+                    PingLabel = Child.StatsMiniTextPanelClass:FindFirstChild("ValueLabel")
+                    break
+                end
+            end
+        end
+        local fakePing = "20.6 ms"
+        if PingLabel then
+            PingLabel:GetPropertyChangedSignal("Text"):Connect(function()
+                PingLabel.Text = fakePing
+            end)
+            PingLabel.Text = fakePing
+        end
+    end
+})
+
+-- سكربت لماب brookhaven 10
+Tab:CreateButton({
+    Name = "Brookhaven  Script",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ALFA5675/elfa123/refs/heads/main/Protected_5677004561531761.txt"))()
+    end
+})
+
+-- سكربت كشف اماكن اللاعبين 11
+Tab:CreateButton({
+    Name = "كشف اماكن اللاعبين",
+    Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/FaresXForest/ESP/refs/heads/main/ESP/ESPV2/ESPV3'))()
+    end
+})
