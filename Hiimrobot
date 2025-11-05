@@ -217,9 +217,9 @@ RunService.Heartbeat:Connect(function()
 end)
 
 print("Data Saver Hardcore v5 Loaded: Extreme Network Throttling Active. Replication Blocked. Visuals Disabled.") end})
-Tab:CreateButton({Name = "انفنتي ", Callback = function() 
+Tab:CreateButton({Name = "انفنتي", Callback = function() 
 loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))() end})
-Tab:CreateButton({Name = "تفعيل", Callback = function() 
+Tab:CreateButton({Name = "سكربت نوكيا بروك هيفن/تفعيل", Callback = function() 
 loadstring(game:HttpGet('https://raw.githubusercontent.com/Ndora1/Ndora1/main/Nokia%20Hub.lua'))() end}) 
 
 local Tab = Window:CreateTab("اوامر بتفيدك حطها في سكربت انفنتي", 4483362458)
@@ -233,9 +233,9 @@ Tab:CreateButton({Name = "FR", Callback = function() end})
 Tab:CreateButton({Name = "AMTTOOL", Callback = function() end})
 Tab:CreateButton({Name = "DATALIMIT 0", Callback = function() end})
 Tab:CreateButton({Name = "REPLICATIONLAG 10", Callback = function() end})
-Tab:CreateButton({Name = "autokeypress w منع التحديث من طردك ", Callback = function() end})
-Tab:CreateButton({Name = "MAXFPS 120  رفع الغريمات ", Callback = function() end})
-Tab:CreateButton({Name = "MAXFPS 30 تنزيل الفريمات مفيد جدا  ", Callback = function() end})
+Tab:CreateButton({Name = "autokeypress w", Callback = function() end})
+Tab:CreateButton({Name = "MAXFPS 120", Callback = function() end})
+Tab:CreateButton({Name = "MAXFPS 30", Callback = function() end})
 
 
 
