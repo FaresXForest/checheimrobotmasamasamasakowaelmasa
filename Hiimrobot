@@ -233,9 +233,9 @@ Tab:CreateButton({Name = "FR", Callback = function() end})
 Tab:CreateButton({Name = "AMTTOOL", Callback = function() end})
 Tab:CreateButton({Name = "DATALIMIT 0", Callback = function() end})
 Tab:CreateButton({Name = "REPLICATIONLAG 10", Callback = function() end})
-Tab:CreateButton({Name = "autokeypress w (منع التحديث من طردك) ", Callback = function() end})
-Tab:CreateButton({Name = "MAXFPS 120 ( رفع الغريمات) ", Callback = function() end})
-Tab:CreateButton({Name = "MAXFPS 30 ( تنزيل الفريمات مفيد جدا ) ", Callback = function() end})
+Tab:CreateButton({Name = "autokeypress w منع التحديث من طردك ", Callback = function() end})
+Tab:CreateButton({Name = "MAXFPS 120  رفع الغريمات ", Callback = function() end})
+Tab:CreateButton({Name = "MAXFPS 30 تنزيل الفريمات مفيد جدا  ", Callback = function() end})
 
 
 
