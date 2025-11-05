@@ -1652,3 +1652,75 @@ TabAFK:CreateButton({
 })
 
 
+local Tab = Window:CreateTab("Anticrash Script", 7734068321)
+Tab:CreateSection("أقوى سكربتات الصمله ومنع الكراش ⚡")
+
+
+local screen = Instance.new("ScreenGui")
+screen.Parent = game:GetService("CoreGui")
+
+local function showMessage(text, color)
+    local label = Instance.new("TextLabel", screen)
+    label.Text = text
+    label.Size = UDim2.new(1, 0, 0, 40)
+    label.Position = UDim2.new(0, 0, 0, 0)
+    label.BackgroundTransparency = 1
+    label.TextColor3 = color
+    label.TextScaled = true
+end
+
+
+Tab:CreateButton({
+    Name = "FREE RAM",
+    Callback = function()
+        showMessage("كل حاجه شغاله واستمتع — هتصمل فوق 600 ساعه 🔥", Color3.fromRGB(0, 255, 0))
+        task.spawn(function()
+            while task.wait(60) do
+                for _, obj in pairs(game:GetDescendants()) do
+                    if obj:IsA("ParticleEmitter") or obj:IsA("Trail") then
+                        obj.Enabled = false
+                    end
+                end
+                workspace.StreamingEnabled = true
+                workspace.StreamingMinRadius = 64
+                workspace.StreamingTargetRadius = 128
+            end
+        end)
+    end
+})
+
+
+Tab:CreateButton({
+    Name = "best fps 🎯",
+    Callback = function()
+        showMessage("كل حاجه شغاله واستمتع — هتصمل فوق 600 ساعه 🔥", Color3.fromRGB(255, 255, 0))
+        task.spawn(function()
+            pcall(function()
+                setfpscap(30)
+                settings().Rendering.QualityLevel = Enum.QualityLevel.Level01
+                game:GetService("Lighting").GlobalShadows = false
+                game:GetService("Lighting").FogEnd = 999999
+                game:GetService("Lighting").Brightness = 2
+            end)
+        end)
+    end
+})
+
+
+Tab:CreateButton({
+    Name = "تقليل السخونه v2🔥❄️",
+    Callback = function()
+        showMessage("كل حاجه شغاله واستمتع — هتصمل فوق 600 ساعه 🔥", Color3.fromRGB(0, 200, 255))
+        task.spawn(function()
+            while task.wait(10) do
+                if game:GetService("RunService").IsRunning then
+                    pcall(function()
+                        setfpscap(25 + math.random(0,5))
+                        game:GetService("Lighting").Ambient = Color3.new(0, 0, 0)
+                        game:GetService("Lighting").OutdoorAmbient = Color3.new(0, 0, 0)
+                    end)
+                end
+            end
+        end)
+    end
+})
