@@ -828,3 +828,401 @@ TabTools:CreateButton({
     end
 })
 
+local TabBrainrot = Window:CreateTab("steal a brainrot / ماب سرقه", 15555155)
+TabBrainrot:CreateSection("SMLH BRAINROT SCRIPTS")
+
+-- 🧠 سكربت 1 - Anti Hit
+TabBrainrot:CreateButton({
+    Name = "Anti Hit (KenGerHub)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/iw929wiwiw/KenGerHub/refs/heads/main/Anti%20Hit"))()
+    end
+})
+
+-- ⚔️ سكربت 2 - PvP Bot by فارس & FO
+TabBrainrot:CreateButton({
+    Name = "سكربت بيفيدك انك تهرب و انت شايل شخصيه و تطلع ل فوق في مكان الي ورا بيتك بدل من شراء سكن طويل",
+    Callback = function()
+        local Players = game:GetService("Players")
+        local LocalPlayer = Players.LocalPlayer
+
+        -- Create GUI
+        local ScreenGui = Instance.new("ScreenGui")
+        ScreenGui.Name = "FarisBotMatrixGUI"
+        ScreenGui.Parent = game.CoreGui
+
+        local Frame = Instance.new("Frame")
+        Frame.Size = UDim2.new(0,300,0,180)
+        Frame.Position = UDim2.new(0.5,-150,0.6,0)
+        Frame.BackgroundColor3 = Color3.fromRGB(0,0,0)
+        Frame.BackgroundTransparency = 0.4
+        Frame.BorderSizePixel = 0
+        Frame.Active = true
+        Frame.Draggable = true
+        Frame.Parent = ScreenGui
+
+        local TextLabel = Instance.new("TextLabel")
+        TextLabel.Size = UDim2.new(1,0,0.2,0)
+        TextLabel.Position = UDim2.new(0,0,0,0)
+        TextLabel.Text = "السكربت من صنع فارس / نصيحه خلي رقم علي 7.4"
+        TextLabel.TextColor3 = Color3.fromRGB(0,255,0)
+        TextLabel.BackgroundTransparency = 1
+        TextLabel.Font = Enum.Font.Code
+        TextLabel.TextScaled = true
+        TextLabel.Parent = Frame
+
+        -- Fly Button
+        local FlyButton = Instance.new("TextButton")
+        FlyButton.Size = UDim2.new(0.8,0,0.25,0)
+        FlyButton.Position = UDim2.new(0.1,0,0.25,0)
+        FlyButton.Text = "Go Up"
+        FlyButton.TextColor3 = Color3.fromRGB(0,255,0)
+        FlyButton.BackgroundColor3 = Color3.fromRGB(0,0,0)
+        FlyButton.BackgroundTransparency = 0.2
+        FlyButton.Font = Enum.Font.Code
+        FlyButton.TextScaled = true
+        FlyButton.Parent = Frame
+
+        -- TextBox button
+        local HeightButton = Instance.new("TextButton")
+        HeightButton.Size = UDim2.new(0.35,0,0.15,0)
+        HeightButton.Position = UDim2.new(0.05,0,0.55,0)
+        HeightButton.Text = "Set Height"
+        HeightButton.TextColor3 = Color3.fromRGB(0,255,0)
+        HeightButton.BackgroundColor3 = Color3.fromRGB(0,0,0)
+        HeightButton.BackgroundTransparency = 0.2
+        HeightButton.Font = Enum.Font.Code
+        HeightButton.TextScaled = true
+        HeightButton.Parent = Frame
+
+        local HeightBox = Instance.new("TextBox")
+        HeightBox.Size = UDim2.new(0.55,0,0.15,0)
+        HeightBox.Position = UDim2.new(0.4,0,0.55,0)
+        HeightBox.PlaceholderText = "Enter height"
+        HeightBox.ClearTextOnFocus = true
+        HeightBox.Text = "10"
+        HeightBox.TextColor3 = Color3.fromRGB(0,255,0)
+        HeightBox.BackgroundColor3 = Color3.fromRGB(0,0,0)
+        HeightBox.BackgroundTransparency = 0.2
+        HeightBox.Font = Enum.Font.Code
+        HeightBox.TextScaled = true
+        HeightBox.Parent = Frame
+
+        -- Matrix effect
+        spawn(function()
+            while true do
+                for i=0,255,5 do
+                    Frame.BackgroundColor3 = Color3.fromRGB(0,i,0)
+                    FlyButton.BackgroundColor3 = Color3.fromRGB(0,0,i)
+                    HeightButton.BackgroundColor3 = Color3.fromRGB(i,0,0)
+                    HeightBox.BackgroundColor3 = Color3.fromRGB(0,i,255)
+                    wait(0.05)
+                end
+                for i=255,0,-5 do
+                    Frame.BackgroundColor3 = Color3.fromRGB(0,i,0)
+                    FlyButton.BackgroundColor3 = Color3.fromRGB(0,0,i)
+                    HeightButton.BackgroundColor3 = Color3.fromRGB(i,0,0)
+                    HeightBox.BackgroundColor3 = Color3.fromRGB(0,i,255)
+                    wait(0.05)
+                end
+            end
+        end)
+
+        -- Button functionality
+        FlyButton.MouseButton1Click:Connect(function()
+            local char = LocalPlayer.Character
+            if char and char:FindFirstChild("HumanoidRootPart") then
+                local height = tonumber(HeightBox.Text) or 500
+                char.HumanoidRootPart.CFrame = char.HumanoidRootPart.CFrame + Vector3.new(0,height,0)
+            end
+        end)
+    end
+})
+
+-- ⚡ سكربت 3 - Advanced DESYNC
+TabBrainrot:CreateButton({
+    Name = "السكربت ده بيكبر سكنك مناسب لل PVP ",
+    Callback = function()
+        -- سكربت DESYNC متقدم لـ Roblox
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local TweenService = game:GetService("TweenService")
+local VirtualInputManager = game:GetService("VirtualInputManager")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+-- إعدادات DESYNC المتقدمة
+local DesyncConfig = {
+    Enabled = true,
+    Mode = "Advanced", -- Basic, Advanced, Ghost, Predator
+    Intensity = 8, -- من 1 إلى 10
+    
+    -- إعدادات الحركة غير المتزامنة
+    SpeedMultiplier = 2.5,
+    FakePosition = true,
+    TeleportInterval = 15,
+    
+    HitboxDesync = true,
+    HitboxSize = 3, -- تكبير الهيتبوكس
+    InvisibleHitbox = false,
+    
+    -- إعدادات الأنيميشن
+    AnimationDesync = true,
+    FakeAnimations = true,
+    
+    -- الخصوصية
+    AntiTarget = true,
+    RandomName = true,
+    
+    -- الحماية
+    AntiKick = true,
+    AutoAdjust = true
+}
+
+-- المتغيرات
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local rootPart = character:WaitForChild("HumanoidRootPart")
+
+-- حفظ الإعدادات الأصلية
+local originalWalkSpeed = humanoid.WalkSpeed
+local originalJumpPower = humanoid.JumpPower
+local originalHipHeight = humanoid.HipHeight
+
+-- نظام DESYNC الأساسي
+local function createBasicDesync()
+    if not DesyncConfig.Enabled then return end
+    
+    humanoid.WalkSpeed = originalWalkSpeed * DesyncConfig.SpeedMultiplier
+    
+    spawn(function()
+        while DesyncConfig.Enabled and DesyncConfig.FakePosition do
+            wait(DesyncConfig.TeleportInterval)
+            local fakePosition = rootPart.Position + Vector3.new(
+                math.random(-10, 10),
+                0,
+                math.random(-10, 10)
+            )
+            humanoid:MoveTo(fakePosition)
+        end
+    end)
+end
+
+-- نظام DESYNC للهيتبوكس
+local function createHitboxDesync()
+    if not DesyncConfig.Enabled or not DesyncConfig.HitboxDesync then return end
+    
+    local function modifyHitboxes()
+        for _, part in pairs(character:GetDescendants()) do
+            if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" then
+                part.Size = part.Size * DesyncConfig.HitboxSize
+                if DesyncConfig.InvisibleHitbox then
+                    part.Transparency = 0.8
+                    part.Material = Enum.Material.ForceField
+                end
+            end
+        end
+    end
+    
+    character.ChildAdded:Connect(function(child)
+        if child:IsA("BasePart") then
+            wait(0.5)
+            modifyHitboxes()
+        end
+    end)
+    
+    modifyHitboxes()
+end
+
+-- نظام DESYNC للأنيميشن
+local function createAnimationDesync()
+    if not DesyncConfig.Enabled or not DesyncConfig.AnimationDesync then return end
+    
+    humanoid:LoadAnimation(Instance.new("Animation")).Name = "FakeAnimation"
+    
+    spawn(function()
+        while DesyncConfig.Enabled do
+            humanoid.AutoRotate = math.random() > 0.5
+            if math.random(1, 10) > 7 then
+                humanoid.Jump = true
+            end
+            wait(0.5)
+        end
+    end)
+end
+
+-- نظام الحماية من الاستهداف
+local function createAntiTargetSystem()
+    if not DesyncConfig.Enabled or not DesyncConfig.AntiTarget then return end
+    
+    spawn(function()
+        while DesyncConfig.Enabled do
+            if DesyncConfig.RandomName then
+                player.Character:FindFirstChild("Humanoid").DisplayName = "Player" .. math.random(1000, 9999)
+            end
+            
+            local zigzag = math.sin(tick() * 10) * 5
+            humanoid:Move(Vector3.new(zigzag, 0, 1))
+            wait(0.1)
+        end
+    end)
+end
+
+-- نظام DESYNC للموقع المتقدم
+local function createAdvancedPositionDesync()
+    if not DesyncConfig.Enabled then return end
+    
+    local lastRealPosition = rootPart.Position
+    local desyncOffset = Vector3.new(0, 0, 0)
+    
+    spawn(function()
+        while DesyncConfig.Enabled do
+            desyncOffset = Vector3.new(
+                math.sin(tick()) * 5,
+                math.cos(tick() * 0.5) * 2,
+                math.sin(tick() * 1.5) * 5
+            )
+            if rootPart then
+                rootPart.CFrame = CFrame.new(lastRealPosition + desyncOffset)
+            end
+            wait(0.1)
+        end
+    end)
+    
+    spawn(function()
+        while DesyncConfig.Enabled do
+            lastRealPosition = rootPart.Position - desyncOffset
+            wait(0.2)
+        end
+    end)
+end
+
+-- نظام محاكاة الـ Lag
+local function createFakeLagSystem()
+    spawn(function()
+        while DesyncConfig.Enabled do
+            wait(math.random(10, 30))
+            humanoid.WalkSpeed = 0
+            wait(0.5)
+            humanoid.WalkSpeed = originalWalkSpeed * DesyncConfig.SpeedMultiplier
+            print("🔄 محاكاة انقطاع الشبكة...")
+        end
+    end)
+end
+
+-- نظام المراقبة التلقائية
+local function createAutoAdjustSystem()
+    if not DesyncConfig.Enabled or not DesyncConfig.AutoAdjust then return end
+    
+    spawn(function()
+        while DesyncConfig.Enabled do
+            local nearbyPlayers = 0
+            for _, otherPlayer in pairs(Players:GetPlayers()) do
+                if otherPlayer ~= player and otherPlayer.Character then
+                    local distance = (otherPlayer.Character.HumanoidRootPart.Position - rootPart.Position).Magnitude
+                    if distance < 50 then
+                        nearbyPlayers = nearbyPlayers + 1
+                    end
+                end
+            end
+            if nearbyPlayers > 3 then
+                DesyncConfig.Intensity = math.min(5, DesyncConfig.Intensity)
+            else
+                DesyncConfig.Intensity = 8
+            end
+            wait(5)
+        end
+    end)
+end
+
+-- واجهة التحكم
+local function createControlPanel()
+    print("🎮 === نظام DESYNC مفعل ===")
+    print("⚡ الوضع: " .. DesyncConfig.Mode)
+    print("💨 السرعة: " .. humanoid.WalkSpeed)
+    print("🎯 الشدة: " .. DesyncConfig.Intensity)
+    print("=============================")
+    
+    spawn(function()
+        while DesyncConfig.Enabled do
+            wait(1)
+            local status = "🟢 نشط"
+            print("[" .. os.date("%X") .. "] " .. status .. " | الشدة: " .. DesyncConfig.Intensity)
+        end
+    end)
+end
+
+-- النظام الرئيسي
+local function initializeDesyncSystem()
+    if not DesyncConfig.Enabled then return end
+    
+    if not character or not rootPart then
+        player.CharacterAdded:Wait()
+        character = player.Character
+        rootPart = character:WaitForChild("HumanoidRootPart")
+        humanoid = character:WaitForChild("Humanoid")
+    end
+    
+    createBasicDesync()
+    createHitboxDesync()
+    createAnimationDesync()
+    createAntiTargetSystem()
+    createAdvancedPositionDesync()
+    createFakeLagSystem()
+    createAutoAdjustSystem()
+    createControlPanel()
+    
+    print("✅ نظام DESYNC مفعل بنجاح!")
+    print("🎯 الآخرون سيرونك تتحرك بشكل غير متزامن")
+    print("🛡️ صعب الاستهداف والضرب")
+end
+
+-- إعادة التفعيل عند إعادة الظهور
+player.CharacterAdded:Connect(function(newCharacter)
+    character = newCharacter
+    humanoid = character:WaitForChild("Humanoid")
+    rootPart = character:WaitForChild("HumanoidRootPart")
+    wait(2) -- انتظار تحميل الشخصية
+    initializeDesyncSystem()
+end)
+
+-- البدء
+initializeDesyncSystem()
+
+-- أوامر التحكم السريعة
+return {
+    Config = DesyncConfig,
+    
+    setIntensity = function(intensity)
+        DesyncConfig.Intensity = math.clamp(intensity, 1, 10)
+        humanoid.WalkSpeed = originalWalkSpeed * (1 + DesyncConfig.Intensity * 0.3)
+    end,
+    
+    toggleDesync = function()
+        DesyncConfig.Enabled = not DesyncConfig.Enabled
+        if DesyncConfig.Enabled then
+            initializeDesyncSystem()
+        else
+            humanoid.WalkSpeed = originalWalkSpeed
+            print("❌ نظام DESYNC متوقف")
+        end
+    end,
+    
+    emergencyStop = function()
+        DesyncConfig.Enabled = false
+        humanoid.WalkSpeed = originalWalkSpeed
+        humanoid.JumpPower = originalJumpPower
+        print("🛑 توقف طارئ - جميع الأنظمة متوقفة")
+    end
+}
+        
+    end
+})
+
+-- 🧩 سكربت 4 - Steal Brain Main
+TabBrainrot:CreateButton({
+    Name = "Steal Brainrot",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/FaresXForest/stealbranrot/refs/heads/main/stealbrain"))()
+    end
+})
