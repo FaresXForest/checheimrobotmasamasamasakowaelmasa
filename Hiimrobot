@@ -714,7 +714,7 @@ BrookTab:CreateButton({
 })
 
 local Tab99 = Window:CreateTab("سكربت 99 ليله", 12222124)
-Tab99:CreateSection("SMLH 99 Nights Scripts")
+Tab99:CreateSection(" 99 Nights Scripts")
 
 -- سكربت 1 - 99 Nights in the Forest
 Tab99:CreateButton({
@@ -829,7 +829,7 @@ TabTools:CreateButton({
 })
 
 local TabBrainrot = Window:CreateTab("steal a brainrot / ماب سرقه", 15555155)
-TabBrainrot:CreateSection("SMLH BRAINROT SCRIPTS")
+TabBrainrot:CreateSection(" BRAINROT SCRIPTS")
 
 -- 🧠 سكربت 1 - Anti Hit
 TabBrainrot:CreateButton({
