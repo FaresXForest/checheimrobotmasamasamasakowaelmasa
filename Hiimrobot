@@ -713,3 +713,118 @@ BrookTab:CreateButton({
     end
 })
 
+local Tab99 = Window:CreateTab("سكربت 99 ليله", 12222124)
+Tab99:CreateSection("SMLH 99 Nights Scripts")
+
+-- سكربت 1 - 99 Nights in the Forest
+Tab99:CreateButton({
+    Name = "99 Nights Loader",
+    Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/GreLQtfN"))()
+    end
+})
+
+-- سكربت 2 - ARCEUS X FLY V2
+Tab99:CreateButton({
+    Name = "ARCEUS X FLY V2",
+    Callback = function()
+        loadstring("\108\111\97\100\115\116\114\105\110\103\40\103\97\109\101\58\72\116\116\112\71\101\116\40\40\39\104\116\116\112\115\58\47\47\103\105\115\116\46\103\105\116\104\117\98\117\115\101\114\99\111\110\116\101\110\116\46\99\111\109\47\109\101\111\122\111\110\101\89\84\47\98\102\48\51\55\100\102\102\57\102\48\97\55\48\48\49\55\51\48\52\100\100\100\54\55\102\100\99\100\51\55\48\47\114\97\119\47\101\49\52\101\55\52\102\52\50\53\98\48\54\48\100\102\53\50\51\51\52\51\99\102\51\48\98\55\56\55\48\55\52\101\98\51\99\53\100\50\47\97\114\99\101\117\115\37\50\53\50\48\120\37\50\53\50\48\102\108\121\37\50\53\50\48\50\37\50\53\50\48\111\98\102\108\117\99\97\116\111\114\39\41\44\116\114\117\101\41\41\40\41\10\10")()
+    end
+})
+
+-- سكربت 3 - Infinite Yield
+Tab99:CreateButton({
+    Name = "Infinite Yield",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+    end
+})
+
+local TabTools = Window:CreateTab("كيبورد + اوتو كلكر", 13422135)
+TabTools:CreateSection("ممكن يفيدك ")
+
+-- سكربت 1 - كيبورد دلتا
+TabTools:CreateButton({
+    Name = "كيبورد دلتا",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Something478/Scripts/main/Keyboards/DeltaKD.lua"))()
+    end
+})
+
+-- سكربت 2 - اوتو كلكر بيفيدك في صمله
+TabTools:CreateButton({
+    Name = "اوتو كلكر بيفيدك في صمله",
+    Callback = function()
+        local Players = game:GetService("Players")
+        local player = Players.LocalPlayer
+        local playerGui = player:WaitForChild("PlayerGui")
+
+        local screenGui = Instance.new("ScreenGui")
+        screenGui.Name = "AutoClickerGUI"
+        screenGui.Parent = playerGui
+        screenGui.ResetOnSpawn = false
+
+        local mainFrame = Instance.new("Frame")
+        mainFrame.Name = "MainFrame"
+        mainFrame.Parent = screenGui
+        mainFrame.Size = UDim2.new(0, 200, 0, 100)
+        mainFrame.Position = UDim2.new(0.8, -200, 0.8, -100)
+        mainFrame.BackgroundColor3 = Color3.fromRGB(255, 182, 193)
+        mainFrame.BorderSizePixel = 0
+
+        local corner = Instance.new("UICorner")
+        corner.CornerRadius = UDim.new(0, 15)
+        corner.Parent = mainFrame
+
+        local toggleButton = Instance.new("TextButton")
+        toggleButton.Parent = mainFrame
+        toggleButton.Size = UDim2.new(0.8, 0, 0.6, 0)
+        toggleButton.Position = UDim2.new(0.1, 0, 0.2, 0)
+        toggleButton.BackgroundColor3 = Color3.fromRGB(255, 105, 180)
+        toggleButton.Text = "شغلو يا الوان😍"
+        toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        toggleButton.TextScaled = true
+        toggleButton.Font = Enum.Font.Cartoon
+
+        local buttonCorner = Instance.new("UICorner")
+        buttonCorner.CornerRadius = UDim.new(0, 10)
+        buttonCorner.Parent = toggleButton
+
+        local isClicking = false
+        local clickConnection
+
+        local function startClicking()
+            if isClicking then return end
+            isClicking = true
+            toggleButton.Text = "وقفو يا زوجتي😍🏳️‍🌈 😘"
+            toggleButton.BackgroundColor3 = Color3.fromRGB(255, 20, 147)
+            clickConnection = game:GetService("RunService").Heartbeat:Connect(function()
+                if isClicking then
+                    local vim = game:GetService("VirtualInputManager")
+                    vim:SendMouseButtonEvent(workspace.CurrentCamera.ViewportSize.X / 2, workspace.CurrentCamera.ViewportSize.Y / 2, 0, true, game, 0)
+                    wait(0.1)
+                    vim:SendMouseButtonEvent(workspace.CurrentCamera.ViewportSize.X / 2, workspace.CurrentCamera.ViewportSize.Y / 2, 0, false, game, 0)
+                end
+                wait(1)
+            end)
+        end
+
+        local function stopClicking()
+            isClicking = false
+            toggleButton.Text = "شغل يا زوجتي🏳️‍🌈"
+            toggleButton.BackgroundColor3 = Color3.fromRGB(255, 105, 180)
+            if clickConnection then
+                clickConnection:Disconnect()
+            end
+        end
+
+        toggleButton.MouseButton1Click:Connect(function()
+            if isClicking then
+                stopClicking()
+            else
+                startClicking()
+            end
+        end)
+    end
+})
+
