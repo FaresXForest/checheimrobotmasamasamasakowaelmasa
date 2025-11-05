@@ -1652,8 +1652,10 @@ TabAFK:CreateButton({
 })
 
 
-local Tab = Window:CreateTab("Anticrash Script", 7734068321)
-Tab:CreateSection("أقوى سكربتات الصمله ومنع الكراش ⚡")
+
+
+
+local Tab = Window:CreateTab("Anticrash Script")
 
 
 local screen = Instance.new("ScreenGui")
@@ -1696,7 +1698,9 @@ Tab:CreateButton({
         showMessage("كل حاجه شغاله واستمتع — هتصمل فوق 600 ساعه 🔥", Color3.fromRGB(255, 255, 0))
         task.spawn(function()
             pcall(function()
-                setfpscap(30)
+                if setfpscap then
+                    setfpscap(30)
+                end
                 settings().Rendering.QualityLevel = Enum.QualityLevel.Level01
                 game:GetService("Lighting").GlobalShadows = false
                 game:GetService("Lighting").FogEnd = 999999
@@ -1715,7 +1719,9 @@ Tab:CreateButton({
             while task.wait(10) do
                 if game:GetService("RunService").IsRunning then
                     pcall(function()
-                        setfpscap(25 + math.random(0,5))
+                        if setfpscap then
+                            setfpscap(25 + math.random(0,5))
+                        end
                         game:GetService("Lighting").Ambient = Color3.new(0, 0, 0)
                         game:GetService("Lighting").OutdoorAmbient = Color3.new(0, 0, 0)
                     end)
