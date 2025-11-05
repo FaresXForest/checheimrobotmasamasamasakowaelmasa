@@ -657,3 +657,59 @@ Tab:CreateButton({
         loadstring(game:HttpGet('https://raw.githubusercontent.com/FaresXForest/ESP/refs/heads/main/ESP/ESPV2/ESPV3'))()
     end
 })
+
+
+local BrookTab = Window:CreateTab("BROOKHAVEN SCRIPTS", 6031075938)
+BrookTab:CreateSection("SMLH BROOKHAVEN HUBS")
+
+-- سكربت 1 - Remix Hub
+BrookTab:CreateButton({
+    Name = "Remix Hub",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/sajjadd2009igh-ship-it/Remix-Hub/refs/heads/main/Remix%20Hub.lua.txt"))()
+    end
+})
+
+-- سكربت 2 - VEXT HUB V3
+BrookTab:CreateButton({
+    Name = "VEXT HUB V3",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/WM-HTML/Vextu-Scripts/refs/heads/main/VEXT%20-%20Brookhaven%20V3%20OBFUSCATE.txt"))()
+    end
+})
+
+-- سكربت 3 - SP Hub
+BrookTab:CreateButton({
+    Name = "SP Hub",
+    Callback = function()
+        local url = "https://discord.gg/QjV3zUsZxQ"
+        setclipboard(url)
+        print("Discord url has been copied to your clipboard!")
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/as6cd0/SP_Hub/refs/heads/main/Brookhaven"))()
+    end
+})
+
+-- سكربت 4 - Hexagon Hub
+BrookTab:CreateButton({
+    Name = "Hexagon Hub",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/nxvap/Hexagon/refs/heads/main/brookhaven"))()
+    end
+})
+
+-- سكربت 5 - Sander XY
+BrookTab:CreateButton({
+    Name = "Sander XY",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/kigredns/testUIDK/refs/heads/main/panel.lua"))()
+    end
+})
+
+-- سكربت 7 - ALFA IRAQ Hub
+BrookTab:CreateButton({
+    Name = "ALFA IRAQ Hub",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ALFA5675/elfa123/refs/heads/main/Protected_5677004561531761.txt"))()
+    end
+})
+
