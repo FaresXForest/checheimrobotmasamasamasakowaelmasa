@@ -713,18 +713,18 @@ BrookTab:CreateButton({
     end
 })
 
-local Tab99 = Window:CreateTab("سكربت 99 ليله", 12222124)
-Tab99:CreateSection(" 99 Nights Scripts")
+local Tab99 = Window:CreateTab("سكربت 99 ليله", 10919630128)
+Tab99:CreateSection(" | 99 Nights Scripts")
 
--- سكربت 1 - 99 Nights in the Forest
+-- سكربت 1 - 99 Nights in the Forest (Soluna)
 Tab99:CreateButton({
-    Name = "99 Nights Loader",
+    Name = "99 Nights (Soluna)",
     Callback = function()
-        loadstring(game:HttpGet("https://pastebin.com/raw/GreLQtfN"))()
+        loadstring(game:HttpGet("https://soluna-script.vercel.app/99-Nights-in-the-Forest.lua",true))()
     end
 })
 
--- سكربت 2 - ARCEUS X FLY V2
+-- سكربت 2 - ARCEUS X FLY V2 (me_ozoneYT)
 Tab99:CreateButton({
     Name = "ARCEUS X FLY V2",
     Callback = function()
@@ -734,11 +734,52 @@ Tab99:CreateButton({
 
 -- سكربت 3 - Infinite Yield
 Tab99:CreateButton({
-    Name = "Infinite Yield",
+    Name = "Infinite Yield Admin",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
     end
 })
+
+-- سكربت 4 - 99 Nights (Kenniel123)
+Tab99:CreateButton({
+    Name = "99 Nights (Kenniel123)",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Kenniel123/99-Nights-in-the-Forest/refs/heads/main/99%20Nights%20in%20the%20Forest"))()
+    end
+})
+
+-- سكربت 5 - Farm Diamond v2
+Tab99:CreateButton({
+    Name = "Farm Diamond v2",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/caomod2077/Script/refs/heads/main/Farm%20Diamond%20v2.lua"))()
+    end
+})
+
+-- سكربت 6 - Nullware Hub
+Tab99:CreateButton({
+    Name = "Nullware Hub",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Laspard69/Nullware-Hub/refs/heads/main/loader.lua"))()
+    end
+})
+
+-- سكربت 7 - H4x Loader 2
+Tab99:CreateButton({
+    Name = "H4x Loader v2",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/H4xScripts/Loader/refs/heads/main/loader2.lua", true))()
+    end
+})
+
+-- سكربت 8 - Vape Voidware Nights
+Tab99:CreateButton({
+    Name = "Vape Voidware Nights",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/VapeVoidware/VW-Add/main/nightsintheforest.lua", true))()
+    end
+})
+
 
 local TabTools = Window:CreateTab("كيبورد + اوتو كلكر", 13422135)
 TabTools:CreateSection("ممكن يفيدك ")
@@ -801,7 +842,7 @@ TabTools:CreateButton({
             clickConnection = game:GetService("RunService").Heartbeat:Connect(function()
                 if isClicking then
                     local vim = game:GetService("VirtualInputManager")
-                    vim:SendMouseButtonEvent(workspace.CurrentCamera.ViewportSize.X / 2, workspace.CurrentCamera.ViewportSize.Y / 2, 0, true, game, 0)
+                   vim:SendMouseButtonEvent(workspace.CurrentCamera.ViewportSize.X / 2, workspace.CurrentCamera.ViewportSize.Y / 2, 0, true, game, 0)
                     wait(0.1)
                     vim:SendMouseButtonEvent(workspace.CurrentCamera.ViewportSize.X / 2, workspace.CurrentCamera.ViewportSize.Y / 2, 0, false, game, 0)
                 end
@@ -839,7 +880,7 @@ TabBrainrot:CreateButton({
     end
 })
 
--- ⚔️ سكربت 2 - PvP Bot by فارس & FO
+-- ⚔️ سكربت 2 - فارس & FO
 TabBrainrot:CreateButton({
     Name = "سكربت بيفيدك انك تهرب و انت شايل شخصيه و تطلع ل فوق في مكان الي ورا بيتك بدل من شراء سكن طويل",
     Callback = function()
@@ -864,7 +905,7 @@ TabBrainrot:CreateButton({
         local TextLabel = Instance.new("TextLabel")
         TextLabel.Size = UDim2.new(1,0,0.2,0)
         TextLabel.Position = UDim2.new(0,0,0,0)
-        TextLabel.Text = "السكربت من صنع فارس / نصيحه خلي رقم علي 7.4"
+        TextLabel.Text = "السكربت من صنع فارس / نصيحه خلي رقم علي 7.4 و لا تنسى تضغط علي set height"
         TextLabel.TextColor3 = Color3.fromRGB(0,255,0)
         TextLabel.BackgroundTransparency = 1
         TextLabel.Font = Enum.Font.Code
@@ -1224,5 +1265,112 @@ TabBrainrot:CreateButton({
     Name = "Steal Brainrot",
     Callback = function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/FaresXForest/stealbranrot/refs/heads/main/stealbrain"))()
+    end
+})
+
+-- 🕐 إضافة تاب جديد باسم "سكربت Time Bombb"
+local TabTimeBomb = Window:CreateTab("سكربت Time Bombb", 4483362452)
+TabTimeBomb:CreateSection("Script by فارس & FO")
+
+
+TabTimeBomb:CreateButton({
+    Name = "تشغيل سكربت Time Bombb (الهروب من لاعبين الي ضدك)",
+    Callback = function()
+        -- Script by فارس & FO
+        
+
+        local Players = game:GetService("Players")
+        local LocalPlayer = Players.LocalPlayer
+
+        -- Create GUI
+        local ScreenGui = Instance.new("ScreenGui")
+        ScreenGui.Name = "FarisBotMatrixGUI"
+        ScreenGui.Parent = game.CoreGui
+
+        local Frame = Instance.new("Frame")
+        Frame.Size = UDim2.new(0,300,0,180)
+        Frame.Position = UDim2.new(0.5,-150,0.6,0)
+        Frame.BackgroundColor3 = Color3.fromRGB(0,0,0)
+        Frame.BackgroundTransparency = 0.4
+        Frame.BorderSizePixel = 0
+        Frame.Active = true
+        Frame.Draggable = true
+        Frame.Parent = ScreenGui
+
+        local TextLabel = Instance.new("TextLabel")
+        TextLabel.Size = UDim2.new(1,0,0.2,0)
+        TextLabel.Position = UDim2.new(0,0,0,0)
+        TextLabel.Text = "سكربت من صنع فارس / نصيحه خليها من 50 ل 100 ده سكربت الهروب من لاعبين و لا تنسى تضغط علي زر Set height "
+        TextLabel.TextColor3 = Color3.fromRGB(0,255,0)
+        TextLabel.BackgroundTransparency = 1
+        TextLabel.Font = Enum.Font.Code
+        TextLabel.TextScaled = true
+        TextLabel.Parent = Frame
+
+        -- Fly Button
+        local FlyButton = Instance.new("TextButton")
+        FlyButton.Size = UDim2.new(0.8,0,0.25,0)
+        FlyButton.Position = UDim2.new(0.1,0,0.25,0)
+        FlyButton.Text = "Go Up"
+        FlyButton.TextColor3 = Color3.fromRGB(0,255,0)
+        FlyButton.BackgroundColor3 = Color3.fromRGB(0,0,0)
+        FlyButton.BackgroundTransparency = 0.2
+        FlyButton.Font = Enum.Font.Code
+        FlyButton.TextScaled = true
+        FlyButton.Parent = Frame
+
+        -- TextBox button
+        local HeightButton = Instance.new("TextButton")
+        HeightButton.Size = UDim2.new(0.35,0,0.15,0)
+        HeightButton.Position = UDim2.new(0.05,0,0.55,0)
+        HeightButton.Text = "Set Height"
+        HeightButton.TextColor3 = Color3.fromRGB(0,255,0)
+        HeightButton.BackgroundColor3 = Color3.fromRGB(0,0,0)
+        HeightButton.BackgroundTransparency = 0.2
+        HeightButton.Font = Enum.Font.Code
+        HeightButton.TextScaled = true
+        HeightButton.Parent = Frame
+
+        local HeightBox = Instance.new("TextBox")
+        HeightBox.Size = UDim2.new(0.55,0,0.15,0)
+        HeightBox.Position = UDim2.new(0.4,0,0.55,0)
+        HeightBox.PlaceholderText = "Enter height"
+        HeightBox.ClearTextOnFocus = true
+        HeightBox.Text = "200"
+        HeightBox.TextColor3 = Color3.fromRGB(0,255,0)
+        HeightBox.BackgroundColor3 = Color3.fromRGB(0,0,0)
+        HeightBox.BackgroundTransparency = 0.2
+        HeightBox.Font = Enum.Font.Code
+        HeightBox.TextScaled = true
+        HeightBox.Parent = Frame
+
+        -- Matrix effect
+        spawn(function()
+            while true do
+                for i=0,255,5 do
+                    Frame.BackgroundColor3 = Color3.fromRGB(0,i,0)
+                    FlyButton.BackgroundColor3 = Color3.fromRGB(0,0,i)
+                    HeightButton.BackgroundColor3 = Color3.fromRGB(i,0,0)
+                    HeightBox.BackgroundColor3 = Color3.fromRGB(0,i,255)
+                    wait(0.05)
+                end
+                for i=255,0,-5 do
+                    Frame.BackgroundColor3 = Color3.fromRGB(0,i,0)
+                    FlyButton.BackgroundColor3 = Color3.fromRGB(0,0,i)
+                    HeightButton.BackgroundColor3 = Color3.fromRGB(i,0,0)
+                    HeightBox.BackgroundColor3 = Color3.fromRGB(0,i,255)
+                    wait(0.05)
+                end
+            end
+        end)
+
+        -- Button functionality
+        FlyButton.MouseButton1Click:Connect(function()
+            local char = LocalPlayer.Character
+            if char and char:FindFirstChild("HumanoidRootPart") then
+                local height = tonumber(HeightBox.Text) or 500
+                char.HumanoidRootPart.CFrame = char.HumanoidRootPart.CFrame + Vector3.new(0,height,0)
+            end
+        end)
     end
 })
