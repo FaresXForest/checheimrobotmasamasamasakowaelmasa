@@ -232,6 +232,10 @@ Tab:CreateButton({Name = "ANTICRACH", Callback = function() end})
 Tab:CreateButton({Name = "FR", Callback = function() end})
 Tab:CreateButton({Name = "AMTTOOL", Callback = function() end})
 Tab:CreateButton({Name = "DATALIMIT 0", Callback = function() end})
+Tab:CreateButton({Name = "REPLICATIONLAG 10", Callback = function() end})
+Tab:CreateButton({Name = "autokeypress w (منع التحديث من طردك) ", Callback = function() end})
+Tab:CreateButton({Name = "MAXFPS 120 ( رفع الغريمات) ", Callback = function() end})
+Tab:CreateButton({Name = "MAXFPS 30 ( تنزيل الفريمات" مفيد جدا ") ", Callback = function() end})
 
 
 
@@ -1643,6 +1647,87 @@ TabAFK:CreateButton({
                 end
             end)
             btn.Text = "🌈 شغال + FPS Saver"
+        end)
+    end
+})
+
+-- إنشاء التاب الجديد
+local Tab = Window:CreateTab("Anticrash Script", 7734068321)
+Tab:CreateSection("أقوى سكربتات الصمله ومنع الكراش ⚡")
+
+
+Tab:CreateButton({
+    Name = "FREE RAM",
+    Callback = function()
+        local screen = Instance.new("ScreenGui", game:GetService("CoreGui"))
+        local label = Instance.new("TextLabel", screen)
+        label.Text = "كل حاجه شغاله واستمتع — هتصمل فوق 600 ساعه 🔥"
+        label.Size = UDim2.new(1, 0, 0, 40)
+        label.Position = UDim2.new(0, 0, 0, 0)
+        label.BackgroundTransparency = 1
+        label.TextColor3 = Color3.fromRGB(0, 255, 0)
+        label.TextScaled = true
+
+        
+        task.spawn(function()
+            while task.wait(60) do
+                for _, obj in pairs(game:GetDescendants()) do
+                    if obj:IsA("ParticleEmitter") or obj:IsA("Trail") then
+                        obj.Enabled = false
+                    end
+                end
+                workspace.StreamingEnabled = true
+                workspace.StreamingMinRadius = 64
+                workspace.StreamingTargetRadius = 128
+            end
+        end)
+    end
+})
+
+
+Tab:CreateButton({
+    Name = "best fps 🎯",
+    Callback = function()
+        local screen = Instance.new("ScreenGui", game:GetService("CoreGui"))
+        local label = Instance.new("TextLabel", screen)
+        label.Text = "كل حاجه شغاله واستمتع — هتصمل فوق 600 ساعه 🔥"
+        label.Size = UDim2.new(1, 0, 0, 40)
+        label.Position = UDim2.new(0, 0, 0, 0)
+        label.BackgroundTransparency = 1
+        label.TextColor3 = Color3.fromRGB(255, 255, 0)
+        label.TextScaled = true
+
+        task.spawn(function()
+            setfpscap(30)
+            settings().Rendering.QualityLevel = Enum.QualityLevel.Level01
+            game:GetService("Lighting").GlobalShadows = false
+            game:GetService("Lighting").FogEnd = 999999
+            game:GetService("Lighting").Brightness = 2
+        end)
+    end
+})
+
+
+Tab:CreateButton({
+    Name = "تقليل السخونه v2🔥❄️",
+    Callback = function()
+        local screen = Instance.new("ScreenGui", game:GetService("CoreGui"))
+        local label = Instance.new("TextLabel", screen)
+        label.Text = "كل حاجه شغاله واستمتع — هتصمل فوق 600 ساعه 🔥"
+        label.Size = UDim2.new(1, 0, 0, 40)
+        label.Position = UDim2.new(0, 0, 0, 0)
+        label.BackgroundTransparency = 1
+        label.TextColor3 = Color3.fromRGB(0, 200, 255)
+        label.TextScaled = true
+
+        task.spawn(function()
+            while task.wait(10) do
+                if game:GetService("RunService").IsRunning then
+                    setfpscap(25 + math.random(0,5))
+                    game:GetService("Lighting").Ambient = Color3.new(0, 0, 0)
+                    game:GetService("Lighting").OutdoorAmbient = Color3.new(0, 0, 0)
+                end
+            end
         end)
     end
 })
