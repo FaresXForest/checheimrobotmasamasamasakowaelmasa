@@ -1698,7 +1698,9 @@ Tab:CreateButton({
         label.TextScaled = true
 
         task.spawn(function()
-            setfpscap(30)
+            pcall(function()
+                    setfpscap(30)
+        
             settings().Rendering.QualityLevel = Enum.QualityLevel.Level01
             game:GetService("Lighting").GlobalShadows = false
             game:GetService("Lighting").FogEnd = 999999
