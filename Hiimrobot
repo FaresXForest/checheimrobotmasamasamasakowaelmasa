@@ -1272,6 +1272,213 @@ TabBrainrot:CreateButton({
     end
 })
 
+-- 🧩 السكربت 5
+TabBrainrot:CreateButton({
+    Name = "سكربت مناسب جدا في pvp هيفيدك بيزود نسبه الضرب و نسبه المراوغه بحيث هتعرف تفوز نصيحه لو هتلعب pvp خش علي settings و خلي سرعه علي 1.7",
+    Callback = function()
+        local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+local gui = Instance.new("ScreenGui")
+gui.Parent = playerGui
+
+
+local black = Instance.new("Frame", gui)
+black.Size = UDim2.new(0.8, 0, 0.4, 0) -- ن الشاشة
+black.Position = UDim2.new(0.1, 0, 0.3, 0)
+black.BackgroundColor3 = Color3.new(0, 0, 0)
+black.BorderSizePixel = 0
+
+
+local loadingText = Instance.new("TextLabel", black)
+loadingText.Size = UDim2.new(1, 0, 1, 0)
+loadingText.BackgroundTransparency = 1
+loadingText.TextColor3 = Color3.new(0, 1, 0)
+loadingText.Text = " شغل السكربت علي مسؤليتك مليش دعوه لو حصل حاجه باند او كيك نصيحه لما تشغل السكربت افتح ال settings و خلي سرعه علي 1.7 لو هتلعب pvp عشان هيفيدك بيزود نسبه انك تضرب الي ضدك و بيعمل مراوغه و بيزود نسبه انك تفوز بل حيوان استنا 16 ثانيه عشان الرساله الي قدامك تختفي و سكربت يشتغل معاك "
+
+loadingText.Font = Enum.Font.Code
+loadingText.TextScaled = true
+loadingText.TextWrapped = true
+
+wait(16)
+gui:Destroy()
+
+
+
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local Camera = workspace.CurrentCamera
+
+local shiftLockEnabled = false
+local updateInterval = 0.1
+local lastUpdate = 0
+local lerpSpeed = 0.7 
+
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "ShiftLockGUI"
+ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
+
+
+local ToggleButton = Instance.new("TextButton")
+ToggleButton.Size = UDim2.new(0, 120, 0, 50)
+ToggleButton.Position = UDim2.new(1, -140, 0.9, 0)
+ToggleButton.AnchorPoint = Vector2.new(0, 0)
+ToggleButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+ToggleButton.TextColor3 = Color3.new(1, 1, 1)
+ToggleButton.Text = "Shift Lock Off"
+ToggleButton.Parent = ScreenGui
+
+
+local SettingsButton = Instance.new("TextButton")
+SettingsButton.Size = UDim2.new(0, 120, 0, 50)
+SettingsButton.Position = UDim2.new(1, -140, 0.8, 0)
+SettingsButton.AnchorPoint = Vector2.new(0, 0)
+SettingsButton.BackgroundColor3 = Color3.fromRGB(255, 140, 0)
+SettingsButton.TextColor3 = Color3.new(1, 1, 1)
+SettingsButton.Text = "Settings"
+SettingsButton.Parent = ScreenGui
+
+
+local SettingsPanel = Instance.new("Frame")
+SettingsPanel.Size = UDim2.new(0, 240, 0, 140)
+SettingsPanel.Position = UDim2.new(1, -260, 0.6, 0)
+SettingsPanel.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+SettingsPanel.Visible = false
+SettingsPanel.Parent = ScreenGui
+
+local SpeedLabel = Instance.new("TextLabel")
+SpeedLabel.Size = UDim2.new(1, -20, 0, 30)
+SpeedLabel.Position = UDim2.new(0, 10, 0, 10)
+SpeedLabel.BackgroundTransparency = 1
+SpeedLabel.TextColor3 = Color3.new(1, 1, 1)
+SpeedLabel.Text = "Look Speed: " .. lerpSpeed
+SpeedLabel.TextScaled = true
+SpeedLabel.Parent = SettingsPanel
+
+
+local WarningLabel = Instance.new("TextLabel")
+WarningLabel.Size = UDim2.new(1, -20, 0, 40)
+WarningLabel.Position = UDim2.new(0, 10, 0, 50)
+WarningLabel.BackgroundTransparency = 1
+WarningLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+WarningLabel.Text = "خد بالك لو رفعت السرعه عاليه جدا ال Anti-Cheat هيطردك نصيحه لو هتلعب pvp خليها علي 1.7 ولو هتلعب طبيعي بدون pvp خليها 1.2 السكربت بيفيد في pvp من نحيه المراوغه و الضرب "
+WarningLabel.TextScaled = true
+WarningLabel.TextWrapped = true
+WarningLabel.Parent = SettingsPanel
+
+
+local IncreaseButton = Instance.new("TextButton")
+IncreaseButton.Size = UDim2.new(0.48, 0, 0, 30)
+IncreaseButton.Position = UDim2.new(0, 10, 0, 100)
+IncreaseButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+IncreaseButton.TextColor3 = Color3.new(1, 1, 1)
+IncreaseButton.Text = "زود"
+IncreaseButton.Parent = SettingsPanel
+
+local DecreaseButton = Instance.new("TextButton")
+DecreaseButton.Size = UDim2.new(0.48, 0, 0, 30)
+DecreaseButton.Position = UDim2.new(0.52, 0, 0, 100)
+DecreaseButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+DecreaseButton.TextColor3 = Color3.new(1, 1, 1)
+DecreaseButton.Text = "قلل"
+DecreaseButton.Parent = SettingsPanel
+
+
+local function toggleShiftLock()
+    shiftLockEnabled = not shiftLockEnabled
+    ToggleButton.Text = shiftLockEnabled and "Shift Lock On" or "Shift Lock Off"
+end
+ToggleButton.MouseButton1Click:Connect(toggleShiftLock)
+
+
+SettingsButton.MouseButton1Click:Connect(function()
+    SettingsPanel.Visible = not SettingsPanel.Visible
+end)
+
+
+IncreaseButton.MouseButton1Click:Connect(function()
+    lerpSpeed = math.clamp(lerpSpeed + 0.5, 0.1, 20)
+    SpeedLabel.Text = "Look Speed: " .. string.format("%.1f", lerpSpeed)
+end)
+
+DecreaseButton.MouseButton1Click:Connect(function()
+    lerpSpeed = math.clamp(lerpSpeed - 0.5, 0.1, 20)
+    SpeedLabel.Text = "Look Speed: " .. string.format("%.1f", lerpSpeed)
+end)
+
+
+local function makeMovable(frame)
+    local dragging = false
+    local dragStart, startPos
+
+    frame.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.Touch then
+            dragging = true
+            dragStart = input.Position
+            startPos = frame.Position
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    dragging = false
+                end
+            end)
+        end
+    end)
+
+    frame.InputChanged:Connect(function(input)
+        if dragging and input.UserInputType == Enum.UserInputType.Touch then
+            local delta = input.Position - dragStart
+            frame.Position = UDim2.new(
+                startPos.X.Scale,
+                startPos.X.Offset + delta.X,
+                startPos.Y.Scale,
+                startPos.Y.Offset + delta.Y
+            )
+        end
+    end)
+end
+
+makeMovable(ToggleButton)
+makeMovable(SettingsButton)
+makeMovable(SettingsPanel)
+
+
+
+local function updateCameraOffset(deltaTime)
+    lastUpdate = lastUpdate + deltaTime
+    if lastUpdate < updateInterval then return end
+    lastUpdate = 0
+
+    local character = LocalPlayer.Character
+    if not character then return end
+
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    local root = character:FindFirstChild("HumanoidRootPart")
+    if not humanoid or not root then return end
+
+    if shiftLockEnabled then
+        humanoid.CameraOffset = Vector3.new(1.5, 0, 0)
+        local camLook = Camera.CFrame.LookVector
+        local targetCFrame = CFrame.new(root.Position) * CFrame.Angles(0, math.atan2(-camLook.X, -camLook.Z), 0)
+        root.CFrame = root.CFrame:Lerp(targetCFrame, lerpSpeed)
+    else
+        humanoid.CameraOffset = Vector3.new(0, 0, 0)
+    end
+end
+
+RunService.RenderStepped:Connect(updateCameraOffset)
+
+
+UserInputService.InputBegan:Connect(function(input, processed)
+    if not processed and input.KeyCode == Enum.KeyCode.LeftShift then
+        toggleShiftLock()
+    end
+end)
+    end
+})
+
 -- 🕐 إضافة تاب جديد باسم "سكربت Time Bombb"
 local TabTimeBomb = Window:CreateTab("سكربت Time Bombb", 4483362452)
 TabTimeBomb:CreateSection("Script by فارس & FO")
