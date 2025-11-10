@@ -29,7 +29,7 @@ local Window = Rayfield:CreateWindow({
       FileName = "SZ_KeySave",
       SaveKey = true,
       GrabKeyFromSite = false,
-      Key = {"Al-Sarrabi ON TOP"} -- هنا المفتاح الحقيقي
+      Key = {"Al-Sarrabi ON TOP"} 
    }
 })
 
@@ -58,7 +58,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local player = Players.LocalPlayer
 
--- GUI واجهة تحكم
+
 local ScreenGui = Instance.new("ScreenGui", player.PlayerGui)
 ScreenGui.ResetOnSpawn = false
 
@@ -87,13 +87,13 @@ Status.BackgroundTransparency = 1
 Status.Font = Enum.Font.SourceSansBold
 Status.TextScaled = true
 
--- Rainbow Text Effect (خفيف)
+
 local function RainbowEffect(textLabel)
 	task.spawn(function()
 		while true do
 			for i = 0, 1, 0.01 do
 				textLabel.TextColor3 = Color3.fromHSV(i, 1, 1)
-				task.wait(0.1)  -- تخفيف الضغط
+				task.wait(0.1)  
 			end
 		end
 	end)
@@ -101,11 +101,11 @@ end
 
 RainbowEffect(Status)
 
--- الوظائف الأساسية
+
 local GhostPreserverEnabled = false
 local LastHeartbeat = tick()
 
--- Remote Event حماية Heartbeat
+
 local function FireHeartbeat()
 	local remote = ReplicatedStorage:FindFirstChildOfClass("RemoteEvent")
 	if remote then
@@ -113,7 +113,7 @@ local function FireHeartbeat()
 	end
 end
 
--- Loop حماية (Optimized)
+
 RunService.RenderStepped:Connect(function()
 	if GhostPreserverEnabled then
 		if tick() - LastHeartbeat >= 5 then  -- كل 5 ثواني فقط
@@ -124,7 +124,7 @@ RunService.RenderStepped:Connect(function()
 	end
 end)
 
--- حماية من AFK Timeout (Roblox Idle)
+
 Players.LocalPlayer.Idled:Connect(function()
 	if GhostPreserverEnabled then
 		VirtualUser:CaptureController()
@@ -132,20 +132,16 @@ Players.LocalPlayer.Idled:Connect(function()
 	end
 end)
 
--- زرار تشغيل/إيقاف النظام
+
 Button.MouseButton1Click:Connect(function()
 	GhostPreserverEnabled = not GhostPreserverEnabled
 	Button.Text = GhostPreserverEnabled and "GhostPreserver: ON" or "GhostPreserver: OFF"
 	Status.Text = GhostPreserverEnabled and "Status: Active - فارس & FO" or "Status: Inactive"
 end)
 
-print("GhostPreserver v10 Lite by فارس & FO Team | Loaded Successfully") end})
+ end})
 Tab:CreateButton({Name = "يقلل الفريمات و يحسن الهاتف", Callback = function()
---[[
-    Data Saver Hardcore v5 - Ultimate Hook Edition
-    Developed by FO FARES & TEAM FO
-    اصمل علي ضمانتي
---]]
+
 
 local Players = game:GetService("Players")
 local Lighting = game:GetService("Lighting")
@@ -155,7 +151,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local LocalPlayer = Players.LocalPlayer
 
--- Disable Visual Effects
+
 local function disableVisuals()
     Lighting.GlobalShadows = false
     Lighting.FogEnd = 1000000
@@ -172,7 +168,7 @@ local function disableVisuals()
 
 end
 
--- Hook Network Calls for Packet Throttling and Blocking
+
 local mt = getrawmetatable(game)
 setreadonly(mt, false)
 local oldNamecall = mt.__namecall
@@ -189,14 +185,14 @@ mt.__namecall = newcclosure(function(self, ...)
     return oldNamecall(self, ...)
 end)
 
--- Disable Replication of New Instances
+
 workspace.DescendantAdded:Connect(function(obj)
     if obj:IsA("Part") or obj:IsA("MeshPart") or obj:IsA("UnionOperation") then
         obj:Destroy()
     end
 end)
 
--- Disable Character Animations Replication
+
 RunService.Stepped:Connect(function()
     if LocalPlayer.Character then
         for _, anim in pairs(LocalPlayer.Character:GetDescendants()) do
@@ -207,16 +203,16 @@ RunService.Stepped:Connect(function()
     end
 end)
 
--- Physics Throttling (reducing physics update rate drastically)
+
 settings().Physics.ThrottleAdjustTime = 10 -- Default is 0.5
 settings().Physics.AllowSleep = true
 
--- Continuous Visual Cleanup
+
 RunService.Heartbeat:Connect(function()
     disableVisuals()
 end)
 
-print("Data Saver Hardcore v5 Loaded: Extreme Network Throttling Active. Replication Blocked. Visuals Disabled.") end})
+ end})
 Tab:CreateButton({Name = "انفنتي", Callback = function() 
 loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))() end})
 Tab:CreateButton({Name = "سكربت نوكيا بروك هيفن/تفعيل", Callback = function() 
@@ -278,7 +274,7 @@ local localPlayer = Players.LocalPlayer
 local PlayerGui = localPlayer:WaitForChild("PlayerGui")
 local RunService = game:GetService("RunService")
 
--- إعداد واجهة المستخدم
+
 local ScreenGui = Instance.new("ScreenGui", PlayerGui)
 local Frame = Instance.new("Frame", ScreenGui)
 Frame.Size = UDim2.new(0, 300, 0, 200)
@@ -288,7 +284,7 @@ Frame.BackgroundTransparency = 0.5
 
 local Title = Instance.new("TextLabel", Frame)
 Title.Size = UDim2.new(1, 0, 0, 30)
-Title.Text = "مضاد الطرد قيد التشغيل"
+Title.Text = "منع الطرد شغال v1"
 Title.TextColor3 = Color3.new(1, 1, 1)
 Title.BackgroundTransparency = 1
 
@@ -298,7 +294,7 @@ Status.Position = UDim2.new(0, 0, 0, 40)
 Status.TextColor3 = Color3.new(1, 1, 0)
 Status.BackgroundTransparency = 1
 
--- إعداد التحكم باللمس لتحريك واجهة المستخدم
+
 local dragging = false
 local dragStart = Vector2.new()
 local startPos = UDim2.new()
@@ -328,46 +324,46 @@ UserInputService.TouchEnded:Connect(function(input)
     end
 end)
 
--- الوظيفة للتحقق من الطرد
+
 local function checkKick()
     while wait(1) do
-        -- تحقق من أنماط الطرد
+        
         if localPlayer.PlayerGui:FindFirstChild("YourKickSignal") then
             Status.Text = "تحذير: محاولة طرد!"
             if localPlayer.Character and localPlayer.Character:FindFirstChild("HumanoidRootPart") then
                 localPlayer.Character.HumanoidRootPart.Anchored = true
                 wait(0.1)
                 localPlayer.Character.HumanoidRootPart.Anchored = false
-                -- منع الحركة
+                
                 localPlayer.Character.Humanoid.PlatformStand = true
                 wait(0.5)
                 localPlayer.Character.Humanoid.PlatformStand = false
             end
         else
-            Status.Text = "كل شيء على ما يرام"
+            Status.Text = "كل حاجه زي الفل ACTIVE"
         end
     end
 end
 
--- تنفيذ الوظيفة في خيط منفصل
+
 coroutine.wrap(checkKick)()
 
--- إضافة الحقوق إلى السكربت
+
 local rights = Instance.new("TextLabel", Frame)
 rights.Size = UDim2.new(1, 0, 0, 30)
 rights.Position = UDim2.new(0, 0, 0, 140)
 rights.TextColor3 = Color3.new(1, 0, 0)
 rights.BackgroundTransparency = 1
-rights.Text = "حقوق فارس و تيم FO"
+rights.Text = "FO_FARES#"
 
--- تحسين الأداء
+
 RunService.RenderStepped:Connect(function()
     if localPlayer.Character and localPlayer.Character:FindFirstChild("Humanoid") then
         localPlayer.Character.Humanoid.PlatformStand = false
     end
 end)
 
--- إعدادات الشبكة
+
 local function onNetworkQualityChanged()
     local quality = game:GetService("NetworkServer").NetworkQuality
     if quality < 3 then
@@ -377,12 +373,12 @@ end
 
 game:GetService("NetworkServer").NetworkQualityChanged:Connect(onNetworkQualityChanged)
 
--- كشف محاولات الطرد المتقدمة
+
 local function detectAdvancedKicks()
     while true do
         wait(1)
-        -- تحقق من الأنماط الأخرى
-        if false then -- استبدل بـ شروط كشف محاولات الطرد المتقدمة
+        
+        if false then -- بدل بـ شروط كشف محاولات الطرد القويه/المتقدمة
             Status.Text = "تحذير: محاولة طرد متقدمة!"
         end
     end
@@ -465,18 +461,18 @@ Tab:CreateButton({
 Tab:CreateButton({
     Name = "AntiAFK  خطير",
     Callback = function()
-       -- سكربت الصمله الأسطوري - من تطوير فارس و تيم FO
+       
 
 local Players = game:GetService("Players")
 local VirtualUser = game:GetService("VirtualUser")
 local player = Players.LocalPlayer
 
--- إعداد الواجهة
+
 local gui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
 gui.Name = "LegendarySurvivalSystem"
 gui.ResetOnSpawn = false
 
--- واجهة رئيسية
+
 local main = Instance.new("Frame", gui)
 main.Size = UDim2.new(0.9, 0, 0.7, 0)
 main.Position = UDim2.new(0.05, 0, 0.15, 0)
@@ -487,12 +483,12 @@ main.Draggable = true
 
 local title = Instance.new("TextLabel", main)
 title.Size = UDim2.new(1, 0, 0.1, 0)
-title.Text = "نظام الصمله الأسطوريه | فارس و تيم FO"
+title.Text = "FO_FARES BEST SMLH"
 title.Font = Enum.Font.Arcade
 title.TextScaled = true
 title.BackgroundTransparency = 1
 
--- تأثير قوس قزح
+
 task.spawn(function()
 	while true do
 		local t = tick()
@@ -519,7 +515,7 @@ local function toggleAFK(state)
 	end
 end
 
--- تقليل الرام
+
 local function autoClean()
 	while true do
 		game:FindService("Lighting").FogEnd = math.huge
@@ -549,7 +545,7 @@ task.spawn(function()
 	end
 end)
 
--- زر تفعيل AntiAFK
+
 local afkBtn = Instance.new("TextButton", main)
 afkBtn.Position = UDim2.new(0.05, 0, 0.3, 0)
 afkBtn.Size = UDim2.new(0.9, 0, 0.12, 0)
@@ -573,13 +569,15 @@ safeBtn.TextScaled = true
 safeBtn.BackgroundColor3 = Color3.fromRGB(20, 0, 0)
 safeBtn.TextColor3 = Color3.new(1, 0, 0)
 safeBtn.MouseButton1Click:Connect(function()
+       togglesafe(true)
+safeBtn.Text = "تم تشغيل الحمايه من الكراش" 
 	setfpscap(30)
 	settings().Rendering.QualityLevel = Enum.QualityLevel.Level01
 	workspace.Terrain.WaterTransparency = 1
 	workspace.Terrain.WaterReflectance = 0
 end)
 
--- زر إخفاء
+
 local closeBtn = Instance.new("TextButton", main)
 closeBtn.Size = UDim2.new(0, 40, 0, 40)
 closeBtn.Position = UDim2.new(1, -45, 0, 5)
@@ -593,7 +591,7 @@ closeBtn.MouseButton1Click:Connect(function()
 	main.Visible = false
 end)
 
--- زر استدعاء
+
 local recallBtn = Instance.new("TextButton", gui)
 recallBtn.Size = UDim2.new(0, 100, 0, 35)
 recallBtn.Position = UDim2.new(0.88, 0, 0.9, 0)
@@ -607,7 +605,7 @@ recallBtn.MouseButton1Click:Connect(function()
 	main.Visible = true
 end)
 
--- تأثير لمعان ذهبي
+
 local uis = game:GetService("UserInputService")
 task.spawn(function()
 	while true do
@@ -891,7 +889,7 @@ TabBrainrot:CreateButton({
         local Players = game:GetService("Players")
         local LocalPlayer = Players.LocalPlayer
 
-        -- Create GUI
+        
         local ScreenGui = Instance.new("ScreenGui")
         ScreenGui.Name = "FarisBotMatrixGUI"
         ScreenGui.Parent = game.CoreGui
@@ -916,7 +914,7 @@ TabBrainrot:CreateButton({
         TextLabel.TextScaled = true
         TextLabel.Parent = Frame
 
-        -- Fly Button
+        
         local FlyButton = Instance.new("TextButton")
         FlyButton.Size = UDim2.new(0.8,0,0.25,0)
         FlyButton.Position = UDim2.new(0.1,0,0.25,0)
@@ -928,7 +926,7 @@ TabBrainrot:CreateButton({
         FlyButton.TextScaled = true
         FlyButton.Parent = Frame
 
-        -- TextBox button
+        
         local HeightButton = Instance.new("TextButton")
         HeightButton.Size = UDim2.new(0.35,0,0.15,0)
         HeightButton.Position = UDim2.new(0.05,0,0.55,0)
@@ -953,7 +951,7 @@ TabBrainrot:CreateButton({
         HeightBox.TextScaled = true
         HeightBox.Parent = Frame
 
-        -- Matrix effect
+        
         spawn(function()
             while true do
                 for i=0,255,5 do
@@ -973,7 +971,7 @@ TabBrainrot:CreateButton({
             end
         end)
 
-        -- Button functionality
+        
         FlyButton.MouseButton1Click:Connect(function()
             local char = LocalPlayer.Character
             if char and char:FindFirstChild("HumanoidRootPart") then
@@ -988,20 +986,20 @@ TabBrainrot:CreateButton({
 TabBrainrot:CreateButton({
     Name = "السكربت ده بيكبر سكنك مناسب لل PVP ",
     Callback = function()
-        -- سكربت DESYNC متقدم لـ Roblox
+        
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local TweenService = game:GetService("TweenService")
 local VirtualInputManager = game:GetService("VirtualInputManager")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
--- إعدادات DESYNC المتقدمة
+
 local DesyncConfig = {
     Enabled = true,
     Mode = "Advanced", -- Basic, Advanced, Ghost, Predator
     Intensity = 8, -- من 1 إلى 10
     
-    -- إعدادات الحركة غير المتزامنة
+    
     SpeedMultiplier = 2.5,
     FakePosition = true,
     TeleportInterval = 15,
@@ -1010,31 +1008,31 @@ local DesyncConfig = {
     HitboxSize = 3, -- تكبير الهيتبوكس
     InvisibleHitbox = false,
     
-    -- إعدادات الأنيميشن
+    
     AnimationDesync = true,
     FakeAnimations = true,
     
-    -- الخصوصية
+    
     AntiTarget = true,
     RandomName = true,
     
-    -- الحماية
+    
     AntiKick = true,
     AutoAdjust = true
 }
 
--- المتغيرات
+
 local player = Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoid = character:WaitForChild("Humanoid")
 local rootPart = character:WaitForChild("HumanoidRootPart")
 
--- حفظ الإعدادات الأصلية
+
 local originalWalkSpeed = humanoid.WalkSpeed
 local originalJumpPower = humanoid.JumpPower
 local originalHipHeight = humanoid.HipHeight
 
--- نظام DESYNC الأساسي
+
 local function createBasicDesync()
     if not DesyncConfig.Enabled then return end
     
@@ -1053,7 +1051,7 @@ local function createBasicDesync()
     end)
 end
 
--- نظام DESYNC للهيتبوكس
+
 local function createHitboxDesync()
     if not DesyncConfig.Enabled or not DesyncConfig.HitboxDesync then return end
     
@@ -1079,7 +1077,7 @@ local function createHitboxDesync()
     modifyHitboxes()
 end
 
--- نظام DESYNC للأنيميشن
+
 local function createAnimationDesync()
     if not DesyncConfig.Enabled or not DesyncConfig.AnimationDesync then return end
     
@@ -1096,7 +1094,7 @@ local function createAnimationDesync()
     end)
 end
 
--- نظام الحماية من الاستهداف
+
 local function createAntiTargetSystem()
     if not DesyncConfig.Enabled or not DesyncConfig.AntiTarget then return end
     
@@ -1113,7 +1111,7 @@ local function createAntiTargetSystem()
     end)
 end
 
--- نظام DESYNC للموقع المتقدم
+
 local function createAdvancedPositionDesync()
     if not DesyncConfig.Enabled then return end
     
@@ -1142,7 +1140,7 @@ local function createAdvancedPositionDesync()
     end)
 end
 
--- نظام محاكاة الـ Lag
+
 local function createFakeLagSystem()
     spawn(function()
         while DesyncConfig.Enabled do
@@ -1150,12 +1148,12 @@ local function createFakeLagSystem()
             humanoid.WalkSpeed = 0
             wait(0.5)
             humanoid.WalkSpeed = originalWalkSpeed * DesyncConfig.SpeedMultiplier
-            print("🔄 محاكاة انقطاع الشبكة...")
+            
         end
     end)
 end
 
--- نظام المراقبة التلقائية
+
 local function createAutoAdjustSystem()
     if not DesyncConfig.Enabled or not DesyncConfig.AutoAdjust then return end
     
@@ -1180,24 +1178,24 @@ local function createAutoAdjustSystem()
     end)
 end
 
--- واجهة التحكم
+
 local function createControlPanel()
-    print("🎮 === نظام DESYNC مفعل ===")
-    print("⚡ الوضع: " .. DesyncConfig.Mode)
-    print("💨 السرعة: " .. humanoid.WalkSpeed)
-    print("🎯 الشدة: " .. DesyncConfig.Intensity)
-    print("=============================")
+    
+    
+    
+    
+    
     
     spawn(function()
         while DesyncConfig.Enabled do
             wait(1)
             local status = "🟢 نشط"
-            print("[" .. os.date("%X") .. "] " .. status .. " | الشدة: " .. DesyncConfig.Intensity)
+            
         end
     end)
 end
 
--- النظام الرئيسي
+
 local function initializeDesyncSystem()
     if not DesyncConfig.Enabled then return end
     
@@ -1217,24 +1215,24 @@ local function initializeDesyncSystem()
     createAutoAdjustSystem()
     createControlPanel()
     
-    print("✅ نظام DESYNC مفعل بنجاح!")
-    print("🎯 الآخرون سيرونك تتحرك بشكل غير متزامن")
-    print("🛡️ صعب الاستهداف والضرب")
+    
+    
+    
 end
 
--- إعادة التفعيل عند إعادة الظهور
+
 player.CharacterAdded:Connect(function(newCharacter)
     character = newCharacter
     humanoid = character:WaitForChild("Humanoid")
     rootPart = character:WaitForChild("HumanoidRootPart")
-    wait(2) -- انتظار تحميل الشخصية
+    wait(2) 
     initializeDesyncSystem()
 end)
 
--- البدء
+
 initializeDesyncSystem()
 
--- أوامر التحكم السريعة
+
 return {
     Config = DesyncConfig,
     
@@ -1249,7 +1247,7 @@ return {
             initializeDesyncSystem()
         else
             humanoid.WalkSpeed = originalWalkSpeed
-            print("❌ نظام DESYNC متوقف")
+            
         end
     end,
     
@@ -1257,7 +1255,7 @@ return {
         DesyncConfig.Enabled = false
         humanoid.WalkSpeed = originalWalkSpeed
         humanoid.JumpPower = originalJumpPower
-        print("🛑 توقف طارئ - جميع الأنظمة متوقفة")
+        
     end
 }
         
@@ -1487,13 +1485,13 @@ TabTimeBomb:CreateSection("Script by فارس & FO")
 TabTimeBomb:CreateButton({
     Name = "تشغيل سكربت Time Bombb (الهروب من لاعبين الي ضدك)",
     Callback = function()
-        -- Script by فارس & FO
+        
         
 
         local Players = game:GetService("Players")
         local LocalPlayer = Players.LocalPlayer
 
-        -- Create GUI
+        
         local ScreenGui = Instance.new("ScreenGui")
         ScreenGui.Name = "FarisBotMatrixGUI"
         ScreenGui.Parent = game.CoreGui
@@ -1518,7 +1516,7 @@ TabTimeBomb:CreateButton({
         TextLabel.TextScaled = true
         TextLabel.Parent = Frame
 
-        -- Fly Button
+        
         local FlyButton = Instance.new("TextButton")
         FlyButton.Size = UDim2.new(0.8,0,0.25,0)
         FlyButton.Position = UDim2.new(0.1,0,0.25,0)
@@ -1530,7 +1528,7 @@ TabTimeBomb:CreateButton({
         FlyButton.TextScaled = true
         FlyButton.Parent = Frame
 
-        -- TextBox button
+        
         local HeightButton = Instance.new("TextButton")
         HeightButton.Size = UDim2.new(0.35,0,0.15,0)
         HeightButton.Position = UDim2.new(0.05,0,0.55,0)
@@ -1555,7 +1553,7 @@ TabTimeBomb:CreateButton({
         HeightBox.TextScaled = true
         HeightBox.Parent = Frame
 
-        -- Matrix effect
+        
         spawn(function()
             while true do
                 for i=0,255,5 do
@@ -1575,7 +1573,7 @@ TabTimeBomb:CreateButton({
             end
         end)
 
-        -- Button functionality
+        
         FlyButton.MouseButton1Click:Connect(function()
             local char = LocalPlayer.Character
             if char and char:FindFirstChild("HumanoidRootPart") then
