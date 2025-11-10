@@ -569,8 +569,6 @@ safeBtn.TextScaled = true
 safeBtn.BackgroundColor3 = Color3.fromRGB(20, 0, 0)
 safeBtn.TextColor3 = Color3.new(1, 0, 0)
 safeBtn.MouseButton1Click:Connect(function()
-       togglesafe(true)
-safeBtn.Text = "تم تشغيل الحمايه من الكراش" 
 	setfpscap(30)
 	settings().Rendering.QualityLevel = Enum.QualityLevel.Level01
 	workspace.Terrain.WaterTransparency = 1
