@@ -1475,6 +1475,192 @@ end)
     end
 })
 
+-- 🧩 سكربت6
+TabBrainrot:CreateButton({
+    Name = "بيفيدك في pvp جرب و ادعيلي",
+    Callback = function()
+        
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
+
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Parent = game:GetService("CoreGui")
+
+local Frame = Instance.new("Frame")
+Frame.Size = UDim2.new(0, 200, 0, 180)
+Frame.Position = UDim2.new(0, 50, 0, 50)
+Frame.BackgroundTransparency = 0.3
+Frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+Frame.BorderSizePixel = 0
+Frame.Parent = ScreenGui
+Frame.Draggable = true
+Frame.Active = true
+
+
+local WarningSpeed = Instance.new("TextLabel")
+WarningSpeed.Size = UDim2.new(0, 180, 0, 20)
+WarningSpeed.Position = UDim2.new(0, 10, 0, 10)
+WarningSpeed.BackgroundTransparency = 1
+WarningSpeed.TextColor3 = Color3.fromRGB(255,0,0)
+WarningSpeed.Text = "لو عملت سرعة عالية جدًا الـAnti-Cheat هيكشفك لو واجهتك اي مشاكل افتح ال settings و جرب تعدل علي الارقام و شوف الي يريحك و يناسبك"
+WarningSpeed.Font = Enum.Font.SourceSansBold
+WarningSpeed.TextScaled = true
+WarningSpeed.Parent = Frame
+
+local WarningDistance = Instance.new("TextLabel")
+WarningDistance.Size = UDim2.new(0, 180, 0, 20)
+WarningDistance.Position = UDim2.new(0, 10, 0, 35)
+WarningDistance.BackgroundTransparency = 1
+WarningDistance.TextColor3 = Color3.fromRGB(255,0,0)
+WarningDistance.Text = "لو السكربت ضايقك في حاجه افتح ال settings يمكن يفيدك"
+WarningDistance.Font = Enum.Font.SourceSansBold
+WarningDistance.TextScaled = true
+WarningDistance.Parent = Frame
+
+
+local StartButton = Instance.new("TextButton")
+StartButton.Size = UDim2.new(0, 180, 0, 30)
+StartButton.Position = UDim2.new(0, 10, 0, 60)
+StartButton.Text = "Start Dodge"
+StartButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+StartButton.TextColor3 = Color3.fromRGB(255,255,255)
+StartButton.Font = Enum.Font.SourceSansBold
+StartButton.TextScaled = true
+StartButton.Parent = Frame
+
+local StopButton = Instance.new("TextButton")
+StopButton.Size = UDim2.new(0, 180, 0, 30)
+StopButton.Position = UDim2.new(0, 10, 0, 95)
+StopButton.Text = "Stop Dodge"
+StopButton.BackgroundColor3 = Color3.fromRGB(255, 85, 85)
+StopButton.TextColor3 = Color3.fromRGB(255,255,255)
+StopButton.Font = Enum.Font.SourceSansBold
+StopButton.TextScaled = true
+StopButton.Parent = Frame
+
+
+local SettingsButton = Instance.new("TextButton")
+SettingsButton.Size = UDim2.new(0, 180, 0, 30)
+SettingsButton.Position = UDim2.new(0, 10, 0, 130)
+SettingsButton.Text = "Settings"
+SettingsButton.BackgroundColor3 = Color3.fromRGB(85, 255, 127)
+SettingsButton.TextColor3 = Color3.fromRGB(0,0,0)
+SettingsButton.Font = Enum.Font.SourceSansBold
+SettingsButton.TextScaled = true
+SettingsButton.Parent = Frame
+
+
+local dodging = false
+local dodgeSpeed = 0.07
+local dodgeDistance = 1.2
+
+local function dodgeMove()
+    local direction = 1
+    while dodging do
+        if not HumanoidRootPart.Parent then break end
+        local currentPos = HumanoidRootPart.Position
+        local offset = HumanoidRootPart.CFrame.RightVector * dodgeDistance * direction
+        HumanoidRootPart.CFrame = CFrame.new(currentPos + offset)
+        direction = -direction
+        wait(dodgeSpeed)
+    end
+end
+
+
+StartButton.MouseButton1Click:Connect(function()
+    if not dodging then
+        dodging = true
+        spawn(dodgeMove)
+    end
+end)
+
+StopButton.MouseButton1Click:Connect(function()
+    dodging = false
+end)
+
+
+local SettingsFrame = Instance.new("Frame")
+SettingsFrame.Size = UDim2.new(0, 200, 0, 120)
+SettingsFrame.Position = UDim2.new(0, 50, 0, 230)
+SettingsFrame.BackgroundTransparency = 0.3
+SettingsFrame.BackgroundColor3 = Color3.fromRGB(40,40,40)
+SettingsFrame.BorderSizePixel = 0
+SettingsFrame.Visible = false
+SettingsFrame.Parent = ScreenGui
+SettingsFrame.Draggable = true
+SettingsFrame.Active = true
+
+
+local SpeedLabel = Instance.new("TextLabel")
+SpeedLabel.Size = UDim2.new(0, 180, 0, 25)
+SpeedLabel.Position = UDim2.new(0, 10, 0, 10)
+SpeedLabel.Text = "Dodge Speed:"
+SpeedLabel.TextColor3 = Color3.fromRGB(255,255,255)
+SpeedLabel.BackgroundTransparency = 1
+SpeedLabel.Font = Enum.Font.SourceSansBold
+SpeedLabel.TextScaled = true
+SpeedLabel.Parent = SettingsFrame
+
+local SpeedBox = Instance.new("TextBox")
+SpeedBox.Size = UDim2.new(0, 180, 0, 35)
+SpeedBox.Position = UDim2.new(0, 10, 0, 35)
+SpeedBox.Text = tostring(dodgeSpeed)
+SpeedBox.ClearTextOnFocus = false
+SpeedBox.TextScaled = true
+SpeedBox.Font = Enum.Font.SourceSansBold
+SpeedBox.Parent = SettingsFrame
+
+
+local DistanceLabel = Instance.new("TextLabel")
+DistanceLabel.Size = UDim2.new(0, 180, 0, 25)
+DistanceLabel.Position = UDim2.new(0, 10, 0, 75)
+DistanceLabel.Text = "Dodge Distance:"
+DistanceLabel.TextColor3 = Color3.fromRGB(255,255,255)
+DistanceLabel.BackgroundTransparency = 1
+DistanceLabel.Font = Enum.Font.SourceSansBold
+DistanceLabel.TextScaled = true
+DistanceLabel.Parent = SettingsFrame
+
+local DistanceBox = Instance.new("TextBox")
+DistanceBox.Size = UDim2.new(0, 180, 0, 35)
+DistanceBox.Position = UDim2.new(0, 10, 0, 100)
+DistanceBox.Text = tostring(dodgeDistance)
+DistanceBox.ClearTextOnFocus = false
+DistanceBox.TextScaled = true
+DistanceBox.Font = Enum.Font.SourceSansBold
+DistanceBox.Parent = SettingsFrame
+
+
+SettingsButton.MouseButton1Click:Connect(function()
+    SettingsFrame.Visible = not SettingsFrame.Visible
+end)
+
+
+SpeedBox.FocusLost:Connect(function()
+    local val = tonumber(SpeedBox.Text)
+    if val and val >= 0.01 then
+        dodgeSpeed = val
+    else
+        SpeedBox.Text = tostring(dodgeSpeed)
+    end
+end)
+
+DistanceBox.FocusLost:Connect(function()
+    local val = tonumber(DistanceBox.Text)
+    if val and val > 0 and val <= 50 then
+        dodgeDistance = val
+    else
+        DistanceBox.Text = tostring(dodgeDistance)
+    end
+end)
+    end
+})
+
 -- 🕐 إضافة تاب جديد باسم "سكربت Time Bombb"
 local TabTimeBomb = Window:CreateTab("سكربت Time Bombb", 4483362452)
 TabTimeBomb:CreateSection("Script by فارس & FO")
