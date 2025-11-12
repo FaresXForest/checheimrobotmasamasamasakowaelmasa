@@ -1270,7 +1270,7 @@ TabBrainrot:CreateButton({
 
 -- 🧩 السكربت 5
 TabBrainrot:CreateButton({
-    Name = "سكربت مناسب جدا في pvp هيفيدك بيزود نسبه الضرب و نسبه المراوغه بحيث هتعرف تفوز نصيحه لو هتلعب pvp خش علي settings و خلي سرعه علي 1.7",
+    Name = "سكربت مناسب جدا في pvp  هيفيدك بيزود نسبه الضرب و نسبه المراوغه بحيث هتعرف تفوز نصيحه لو هتلعب pvp خش علي settings لو هتشغل ايمبوت شغله معاه علي سرعه 1.2 و خلي سرعه علي 1.7",
     Callback = function()
         local player = game.Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
@@ -1660,6 +1660,328 @@ DistanceBox.FocusLost:Connect(function()
 end)
     end
 })
+
+--  سكربت
+TabBrainrot:CreateButton({
+    Name = "سكربت ايم بوت",
+    Callback = function()
+      
+
+
+local DEFAULT_TARGET_PART = "Head"
+local CAMERA_VERTICAL_OFFSET = 1.5
+local CAMERA_DISTANCE_BEHIND = 10
+local CAMERA_SIDE_OFFSET = 2
+
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local Camera = game.Workspace.CurrentCamera
+local LocalPlayer = Players.LocalPlayer
+
+local AimbotEnabled = false
+local TargetPlayer = nil
+local IsAiming = false
+local TargetPartName = DEFAULT_TARGET_PART
+local OriginalCameraType = Camera.CameraType
+
+
+local Library = {}
+function Library:CreateWindow(title)
+    local ScreenGui = Instance.new("ScreenGui"); ScreenGui.Name = "FaresGUI_" .. math.random(1, 1000); pcall(function() ScreenGui.Parent = gethui and gethui() or game:GetService("CoreGui") end)
+    local MainFrame = Instance.new("Frame"); MainFrame.Name = "MainFrame"; MainFrame.Size = UDim2.new(0, 250, 0, 400); MainFrame.Position = UDim2.new(0.1, 0, 0.1, 0); MainFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 45); MainFrame.BorderColor3 = Color3.fromRGB(85, 85, 125); MainFrame.BorderSizePixel = 2; MainFrame.Active = true; MainFrame.Draggable = true; MainFrame.Parent = ScreenGui
+    local TitleBar = Instance.new("Frame"); TitleBar.Name = "TitleBar"; TitleBar.Size = UDim2.new(1, 0, 0, 30); TitleBar.BackgroundColor3 = Color3.fromRGB(45, 45, 55); TitleBar.Parent = MainFrame
+    local TitleLabel = Instance.new("TextLabel"); TitleLabel.Name = "TitleLabel"; TitleLabel.Size = UDim2.new(1, 0, 1, 0); TitleLabel.BackgroundColor3 = Color3.fromRGB(45, 45, 55); TitleLabel.Text = title; TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255); TitleLabel.Font = Enum.Font.SourceSansBold; TitleLabel.TextSize = 16; TitleLabel.Parent = TitleBar
+    return MainFrame, ScreenGui
+end
+
+
+
+local MainFrame, ScreenGui = Library:CreateWindow("FO_FARES# Aimbot (v6.3)")
+
+
+
+
+local ToggleAimbotButton = Instance.new("TextButton"); ToggleAimbotButton.Name = "ToggleAimbotButton"; ToggleAimbotButton.Size = UDim2.new(0, 230, 0, 30); ToggleAimbotButton.Position = UDim2.new(0.5, -115, 0, 40); ToggleAimbotButton.BackgroundColor3 = Color3.fromRGB(200, 50, 50); ToggleAimbotButton.Text = "Aimbot: OFF"; ToggleAimbotButton.TextColor3 = Color3.fromRGB(255, 255, 255); ToggleAimbotButton.Font = Enum.Font.SourceSansBold; ToggleAimbotButton.TextSize = 16; ToggleAimbotButton.Parent = MainFrame; local ScrollingFrame = Instance.new("ScrollingFrame"); ScrollingFrame.Name = "PlayerListFrame"; ScrollingFrame.Size = UDim2.new(0, 230, 0, 180); ScrollingFrame.Position = UDim2.new(0.5, -115, 0, 80); ScrollingFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 50); ScrollingFrame.BorderSizePixel = 1; ScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 0); ScrollingFrame.ScrollBarImageColor3 = Color3.fromRGB(85, 85, 125); ScrollingFrame.Parent = MainFrame; local UIListLayout = Instance.new("UIListLayout"); UIListLayout.Padding = UDim.new(0, 5); UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder; UIListLayout.Parent = ScrollingFrame; local TargetInfoLabel = Instance.new("TextLabel"); TargetInfoLabel.Name = "TargetInfoLabel"; TargetInfoLabel.Size = UDim2.new(1, 0, 0, 30); TargetInfoLabel.Position = UDim2.new(0, 0, 1, -30); TargetInfoLabel.BackgroundColor3 = Color3.fromRGB(35, 35, 45); TargetInfoLabel.Text = "Target: None"; TargetInfoLabel.TextColor3 = Color3.fromRGB(255, 255, 255); TargetInfoLabel.Font = Enum.Font.SourceSans; TargetInfoLabel.TextSize = 14; TargetInfoLabel.Parent = MainFrame; local BodyPartFrame = Instance.new("Frame"); BodyPartFrame.Name = "BodyPartFrame"; BodyPartFrame.Size = UDim2.new(0, 230, 0, 70); BodyPartFrame.Position = UDim2.new(0.5, -115, 0, 270); BodyPartFrame.BackgroundTransparency = 1; BodyPartFrame.Parent = MainFrame; local UIGridLayout = Instance.new("UIGridLayout"); UIGridLayout.CellSize = UDim2.new(0, 70, 0, 30); UIGridLayout.CellPadding = UDim2.new(0, 5, 0, 5); UIGridLayout.Parent = BodyPartFrame; local BodyPartButtons = {};
+
+
+
+local ToggleGUIButton = Instance.new("TextButton"); ToggleGUIButton.Name = "ToggleGUI_Mobile"; ToggleGUIButton.Size = UDim2.new(0, 80, 0, 35); ToggleGUIButton.Position = UDim2.new(1, -90, 0.3, 0); ToggleGUIButton.BackgroundColor3 = Color3.fromRGB(50, 50, 60); ToggleGUIButton.Text = "Toggle GUI"; ToggleGUIButton.TextColor3 = Color3.fromRGB(255, 255, 255); ToggleGUIButton.Font = Enum.Font.SourceSansBold; ToggleGUIButton.TextSize = 14; ToggleGUIButton.Parent = ScreenGui
+local AimButton = Instance.new("ImageButton"); AimButton.Name = "AimButton_Mobile"; AimButton.Size = UDim2.new(0, 70, 0, 70); AimButton.Position = UDim2.new(1, -85, 0.5, 0); AimButton.BackgroundColor3 = Color3.fromRGB(200, 50, 50); AimButton.BackgroundTransparency = 0.3; AimButton.Image = "rbxassetid://3926305904"; AimButton.ImageColor3 = Color3.fromRGB(255, 255, 255); AimButton.ScaleType = Enum.ScaleType.Fit; AimButton.Parent = ScreenGui
+
+
+local WarningFrame = Instance.new("Frame"); WarningFrame.Name = "WarningFrame"; WarningFrame.Size = UDim2.new(0, 300, 0, 180); WarningFrame.Position = UDim2.new(0.5, -150, 0.5, -90); WarningFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25); WarningFrame.BorderColor3 = Color3.fromRGB(255, 0, 0); WarningFrame.BorderSizePixel = 2; WarningFrame.Visible = true; WarningFrame.Parent = ScreenGui; local WarningTitle = Instance.new("TextLabel"); WarningTitle.Size = UDim2.new(1, 0, 0, 30); WarningTitle.BackgroundColor3 = Color3.fromRGB(255, 0, 0); WarningTitle.Text = "كلام مهم لازم تقراه عشان تستمتع بل  ايم بوت !"; WarningTitle.TextColor3 = Color3.fromRGB(255, 255, 255); WarningTitle.Font = Enum.Font.SourceSansBold; WarningTitle.TextSize = 20; WarningTitle.Parent = WarningFrame; local WarningText = Instance.new("TextLabel"); WarningText.Size = UDim2.new(0.9, 0, 1, -45)
+WarningText.TextWrapped = true
+WarningText.TextYAlignment = Enum.TextYAlignment.Top
+WarningText.AutomaticSize = Enum.AutomaticSize.Y WarningText.Position = UDim2.new(0.05, 0, 0, 35); WarningText.BackgroundTransparency = 1; WarningText.Text ="  شكرا ليك لتشغيل سكربت aimbot السكربت دلوقتي هيشتغل معاك ولكن السكربت ده بنسبه 80 في الميه هتقول ليه ده ايمبوت المفروض 100 في الميه هو فعلا 100 في الميه ولكن هو 80 بسبب الكاميرا و انت عارف ان ماب stealabrainrot بتمنع تحريك شخصيه علي الخصم فا دلوقتيهتحتاج تشغل سكربتين من صنعي سكربت SL متقلقش دي نسخه ال v6 مش هتحركك تلقائي دي بس هتثبت شخصتيك عشان الخطوه التانيه تنجح الخطوه التانيه هتشغل سكربت shift lock الي من صنعي و هتفتح settings و تخلي رقم علي 1.2 و تعمل لل شيفت on لو طبقت كل ده احب اطمنك انك كدا بتستعمل aimbot بنسبه 100 في الميه."; WarningText.TextColor3 = Color3.fromRGB(255, 200, 200); WarningText.Font = Enum.Font.SourceSans; WarningText.TextSize = 14; WarningText.TextWrapped = true; WarningText.Parent = WarningFrame; local CloseWarningButton = Instance.new("TextButton"); CloseWarningButton.Size = UDim2.new(0, 100, 0, 25); CloseWarningButton.Position = UDim2.new(0.5, -50, 1, -30); CloseWarningButton.BackgroundColor3 = Color3.fromRGB(80, 80, 80); CloseWarningButton.Text = "ok"; CloseWarningButton.TextColor3 = Color3.fromRGB(255, 255, 255); CloseWarningButton.Font = Enum.Font.SourceSansBold; CloseWarningButton.Parent = WarningFrame
+
+
+local function MakeDraggable(guiObject)
+    local dragging = false
+    local dragInput = nil
+    local dragStart = nil
+    local startPos = nil
+
+    guiObject.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = true
+            dragInput = input
+            dragStart = input.Position
+            startPos = guiObject.Position
+        end
+    end)
+
+    guiObject.InputEnded:Connect(function(input)
+        if input == dragInput then
+            dragging = false
+            dragInput = nil
+        end
+    end)
+
+    UserInputService.InputChanged:Connect(function(input)
+        if input == dragInput and dragging then
+            local delta = input.Position - dragStart
+            guiObject.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+        end
+    end)
+end
+
+
+function UpdatePlayerList() for i, v in pairs(ScrollingFrame:GetChildren()) do if v:IsA("TextButton") then v:Destroy() end end; local players = Players:GetPlayers(); ScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, #players * 35); for i, player in pairs(players) do if player ~= LocalPlayer then local PlayerButton = Instance.new("TextButton"); PlayerButton.Name = player.Name; PlayerButton.Size = UDim2.new(1, -10, 0, 30); PlayerButton.BackgroundColor3 = Color3.fromRGB(50, 50, 60); PlayerButton.Text = player.Name; PlayerButton.TextColor3 = Color3.fromRGB(220, 220, 220); PlayerButton.Font = Enum.Font.SourceSans; PlayerButton.TextSize = 14; PlayerButton.Parent = ScrollingFrame; PlayerButton.MouseButton1Click:Connect(function() TargetPlayer = player; TargetInfoLabel.Text = "Target: " .. player.Name; TargetInfoLabel.TextColor3 = Color3.fromRGB(100, 255, 100) end) end end end
+function CreateBodyPartButtons() local parts = {"Head", "Torso", "HumanoidRootPart"}; for _, partName in pairs(parts) do local button = Instance.new("TextButton"); button.Name = partName; button.BackgroundColor3 = Color3.fromRGB(60, 60, 70); button.Text = partName; button.TextColor3 = Color3.fromRGB(255, 255, 255); button.Font = Enum.Font.SourceSans; button.TextSize = 12; button.Parent = BodyPartFrame; BodyPartButtons[partName] = button; button.MouseButton1Click:Connect(function() TargetPartName = partName; for name, btn in pairs(BodyPartButtons) do btn.BackgroundColor3 = (name == partName) and Color3.fromRGB(85, 85, 125) or Color3.fromRGB(60, 60, 70) end end) end; if BodyPartButtons[DEFAULT_TARGET_PART] then BodyPartButtons[DEFAULT_TARGET_PART].BackgroundColor3 = Color3.fromRGB(85, 85, 125) end end
+function GetTargetPart(character, partName) if partName == "Torso" then return character:FindFirstChild("UpperTorso") or character:FindFirstChild("Torso") else return character:FindFirstChild(partName) end end
+function AimbotLoop() if AimbotEnabled and IsAiming and TargetPlayer and TargetPlayer.Character then local myRoot = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart"); local targetPart = GetTargetPart(TargetPlayer.Character, TargetPartName); if myRoot and targetPart then if Camera.CameraType ~= Enum.CameraType.Scriptable then Camera.CameraType = Enum.CameraType.Scriptable end; local aimAtPosition = targetPart.CFrame.Position + Vector3.new(0, CAMERA_VERTICAL_OFFSET, 0); local cameraPivot = myRoot.CFrame * CFrame.new(CAMERA_SIDE_OFFSET, CAMERA_VERTICAL_OFFSET, 0); local cameraPosition = cameraPivot.Position - ((aimAtPosition - cameraPivot.Position).Unit * CAMERA_DISTANCE_BEHIND); local newCameraCFrame = CFrame.new(cameraPosition, aimAtPosition); Camera.CFrame = newCameraCFrame end else if Camera.CameraType == Enum.CameraType.Scriptable then Camera.CameraType = OriginalCameraType end end end
+
+
+
+local isDragging = false
+local dragThreshold = 5 
+ToggleGUIButton.InputBegan:Connect(function(input) isDragging = false end)
+ToggleGUIButton.InputChanged:Connect(function(input) if (input.Position - input.StartPosition).Magnitude > dragThreshold then isDragging = true end end)
+ToggleGUIButton.InputEnded:Connect(function(input) if not isDragging then MainFrame.Visible = not MainFrame.Visible end end)
+
+AimButton.InputBegan:Connect(function(input) if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then IsAiming = true; AimButton.BackgroundColor3 = Color3.fromRGB(50, 200, 50) end end)
+AimButton.InputEnded:Connect(function(input) if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then IsAiming = false; AimButton.BackgroundColor3 = Color3.fromRGB(200, 50, 50) end end)
+
+ToggleAimbotButton.MouseButton1Click:Connect(function() AimbotEnabled = not AimbotEnabled; if AimbotEnabled then ToggleAimbotButton.BackgroundColor3 = Color3.fromRGB(50, 200, 50); ToggleAimbotButton.Text = "Aimbot: ON" else ToggleAimbotButton.BackgroundColor3 = Color3.fromRGB(200, 50, 50); ToggleAimbotButton.Text = "Aimbot: OFF" end end)
+CloseWarningButton.MouseButton1Click:Connect(function() WarningFrame:Destroy() end)
+Players.PlayerAdded:Connect(UpdatePlayerList)
+Players.PlayerRemoving:Connect(UpdatePlayerList)
+RunService.RenderStepped:Connect(AimbotLoop)
+
+
+MakeDraggable(ToggleGUIButton)
+MakeDraggable(AimButton)
+
+UpdatePlayerList()
+CreateBodyPartButtons()
+
+  
+    end
+})
+
+-- 🧩 سكريت
+TabBrainrot:CreateButton({
+    Name = "سكربت SL لازم تشغله مع الايمبوت و شيفت لوك",
+    Callback = function()
+        
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local ContextActionService = game:GetService("ContextActionService")
+local LocalPlayer = Players.LocalPlayer
+local Camera = game.Workspace.CurrentCamera
+
+
+local SHIFT_LOCK_OFFSET = Vector3.new(1.7, 0.5, 0)
+local KEYBIND = Enum.KeyCode.LeftShift
+local ACTION_NAME = "FaresMoveDirectionShiftLock_v6"
+
+
+local isShiftLockActive = false
+local isTouchDevice = UserInputService.TouchEnabled
+local character, humanoid
+
+
+
+local function updateCharacterRotation()
+    if not isShiftLockActive or not humanoid or humanoid.Sit then return end
+    
+
+
+    local cameraLookVector = Camera.CFrame.LookVector
+    local groundLookVector = Vector3.new(cameraLookVector.X, 0, cameraLookVector.Z).Unit
+    
+
+
+    humanoid.MoveDirection = groundLookVector
+end
+
+
+local function toggleShiftLock(actionName, inputState, inputObject)
+    if inputState ~= Enum.UserInputState.Begin then return end
+    
+    isShiftLockActive = not isShiftLockActive
+    
+    UserInputService.MouseBehavior = isShiftLockActive and Enum.MouseBehavior.LockCenter or Enum.MouseBehavior.Default
+    
+    if humanoid then
+    
+
+
+        humanoid.AutoRotate = not isShiftLockActive
+        humanoid.CameraOffset = isShiftLockActive and SHIFT_LOCK_OFFSET or Vector3.new(0, 0, 0)
+    end
+    
+    if isTouchDevice then
+        ContextActionService:SetTitle(ACTION_NAME, isShiftLockActive and "SL: ON" or "SL: OFF")
+    end
+end
+
+
+
+RunService.RenderStepped:Connect(updateCharacterRotation)
+
+
+
+local function onCharacterAdded(char)
+    character = char
+    humanoid = char:WaitForChild("Humanoid")
+    
+    
+    
+    if humanoid then
+        humanoid.AutoRotate = not isShiftLockActive
+        humanoid.CameraOffset = isShiftLockActive and SHIFT_LOCK_OFFSET or Vector3.new(0, 0, 0)
+    end
+end
+
+
+
+if isTouchDevice then
+    ContextActionService:BindAction(ACTION_NAME, toggleShiftLock, true)
+    ContextActionService:SetPosition(ACTION_NAME, UDim2.new(1, -80, 0, 15))
+    ContextActionService:SetTitle(ACTION_NAME, "SL: OFF")
+else
+    UserInputService.InputBegan:Connect(function(input, isProcessed)
+        if not isProcessed and input.KeyCode == KEYBIND then
+            toggleShiftLock(ACTION_NAME, Enum.UserInputState.Begin, input)
+        end
+    end)
+end
+
+
+
+LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
+
+
+
+if LocalPlayer.Character then
+    onCharacterAdded(LocalPlayer.Character)
+end
+
+    end
+})
+
+-- 🧩 سكربت
+TabBrainrot:CreateButton({
+    Name = "هو سكربت SL ولكن v8 ميزته انه يحركك علي حسب اتجاه الكاميرا لا انصح بل اعتماد عليه",
+    Callback = function()
+        
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local ContextActionService = game:GetService("ContextActionService")
+local LocalPlayer = Players.LocalPlayer
+local Camera = game.Workspace.CurrentCamera
+
+
+local SHIFT_LOCK_OFFSET = Vector3.new(1.7, 0.5, 0)
+local KEYBIND = Enum.KeyCode.LeftShift
+local ACTION_NAME = "FaresOriginalSafeShiftLock_v8"
+
+
+local isShiftLockActive = false
+local isTouchDevice = UserInputService.TouchEnabled
+local character, humanoid
+
+
+
+local function onRenderStepped()
+    if not isShiftLockActive or not humanoid or humanoid.Sit then return end
+    
+    local cameraLookVector = Camera.CFrame.LookVector
+    local groundLookVector = Vector3.new(cameraLookVector.X, 0, cameraLookVector.Z).Unit
+    
+    
+    
+    humanoid:Move(groundLookVector, false)
+end
+
+
+local function toggleShiftLock(actionName, inputState, inputObject)
+    if inputState ~= Enum.UserInputState.Begin then return end
+    
+    isShiftLockActive = not isShiftLockActive
+    
+    UserInputService.MouseBehavior = isShiftLockActive and Enum.MouseBehavior.LockCenter or Enum.MouseBehavior.Default
+    
+    if humanoid then
+        humanoid.AutoRotate = not isShiftLockActive
+        humanoid.CameraOffset = isShiftLockActive and SHIFT_LOCK_OFFSET or Vector3.new(0, 0, 0)
+    end
+    
+    if isTouchDevice then
+        ContextActionService:SetTitle(ACTION_NAME, isShiftLockActive and "SL: ON" or "SL: OFF")
+    end
+end
+
+
+
+RunService.RenderStepped:Connect(onRenderStepped)
+
+
+
+local function onCharacterAdded(char)
+    character = char
+    humanoid = char:WaitForChild("Humanoid")
+    
+    if humanoid then
+        humanoid.AutoRotate = not isShiftLockActive
+        humanoid.CameraOffset = isShiftLockActive and SHIFT_LOCK_OFFSET or Vector3.new(0, 0, 0)
+    end
+end
+
+
+
+if isTouchDevice then
+    ContextActionService:BindAction(ACTION_NAME, toggleShiftLock, true)
+    ContextActionService:SetPosition(ACTION_NAME, UDim2.new(1, -80, 0, 15))
+    ContextActionService:SetTitle(ACTION_NAME, "SL: OFF")
+else
+    UserInputService.InputBegan:Connect(function(input, isProcessed)
+        if not isProcessed and input.KeyCode == KEYBIND then
+            toggleShiftLock(ACTION_NAME, Enum.UserInputState.Begin, input)
+        end
+    end)
+end
+
+
+
+LocalPlayer.CharacterAdded:Connect(onCharacterAdded)
+
+
+
+if LocalPlayer.Character then
+    onCharacterAdded(LocalPlayer.Character)
+end
+
+
+
+    end
+})
+
 
 -- 🕐 إضافة تاب جديد باسم "سكربت Time Bombb"
 local TabTimeBomb = Window:CreateTab("سكربت Time Bombb", 4483362452)
@@ -2119,3 +2441,128 @@ Tab:CreateButton({
         end)
     end
 })
+
+--  التاب الجديد
+local TabMm2 = Window:CreateTab("سكربتات Mm2🔪", 1234567890)
+TabMm2:CreateSection("MM2🔪| هذا اول سكربت و سيتم اضافه سكربتات في المستقبل")
+
+-- 🔪 mm2 script
+TabMm2:CreateButton({
+    Name = "ايمبوت عشان تقتل لاعبين بل مسدس او سكينه لازم تفعيل shiftlock داخل الماب ",
+    Callback = function()
+        
+
+
+local DEFAULT_TARGET_PART = "Head"
+local CAMERA_VERTICAL_OFFSET = 1.5
+local CAMERA_DISTANCE_BEHIND = 10
+local CAMERA_SIDE_OFFSET = 2
+
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local Camera = game.Workspace.CurrentCamera
+local LocalPlayer = Players.LocalPlayer
+
+local AimbotEnabled = false
+local TargetPlayer = nil
+local IsAiming = false
+local TargetPartName = DEFAULT_TARGET_PART
+local OriginalCameraType = Camera.CameraType
+
+
+local Library = {}
+function Library:CreateWindow(title)
+    local ScreenGui = Instance.new("ScreenGui"); ScreenGui.Name = "FaresGUI_" .. math.random(1, 1000); pcall(function() ScreenGui.Parent = gethui and gethui() or game:GetService("CoreGui") end)
+    local MainFrame = Instance.new("Frame"); MainFrame.Name = "MainFrame"; MainFrame.Size = UDim2.new(0, 250, 0, 400); MainFrame.Position = UDim2.new(0.1, 0, 0.1, 0); MainFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 45); MainFrame.BorderColor3 = Color3.fromRGB(85, 85, 125); MainFrame.BorderSizePixel = 2; MainFrame.Active = true; MainFrame.Draggable = true; MainFrame.Parent = ScreenGui
+    local TitleBar = Instance.new("Frame"); TitleBar.Name = "TitleBar"; TitleBar.Size = UDim2.new(1, 0, 0, 30); TitleBar.BackgroundColor3 = Color3.fromRGB(45, 45, 55); TitleBar.Parent = MainFrame
+    local TitleLabel = Instance.new("TextLabel"); TitleLabel.Name = "TitleLabel"; TitleLabel.Size = UDim2.new(1, 0, 1, 0); TitleLabel.BackgroundColor3 = Color3.fromRGB(45, 45, 55); TitleLabel.Text = title; TitleLabel.TextColor3 = Color3.fromRGB(255, 255, 255); TitleLabel.Font = Enum.Font.SourceSansBold; TitleLabel.TextSize = 16; TitleLabel.Parent = TitleBar
+    return MainFrame, ScreenGui
+end
+
+
+
+local MainFrame, ScreenGui = Library:CreateWindow("FO_FARES# Aimbot (v6.3)")
+
+
+
+
+local ToggleAimbotButton = Instance.new("TextButton"); ToggleAimbotButton.Name = "ToggleAimbotButton"; ToggleAimbotButton.Size = UDim2.new(0, 230, 0, 30); ToggleAimbotButton.Position = UDim2.new(0.5, -115, 0, 40); ToggleAimbotButton.BackgroundColor3 = Color3.fromRGB(200, 50, 50); ToggleAimbotButton.Text = "Aimbot: OFF"; ToggleAimbotButton.TextColor3 = Color3.fromRGB(255, 255, 255); ToggleAimbotButton.Font = Enum.Font.SourceSansBold; ToggleAimbotButton.TextSize = 16; ToggleAimbotButton.Parent = MainFrame; local ScrollingFrame = Instance.new("ScrollingFrame"); ScrollingFrame.Name = "PlayerListFrame"; ScrollingFrame.Size = UDim2.new(0, 230, 0, 180); ScrollingFrame.Position = UDim2.new(0.5, -115, 0, 80); ScrollingFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 50); ScrollingFrame.BorderSizePixel = 1; ScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, 0); ScrollingFrame.ScrollBarImageColor3 = Color3.fromRGB(85, 85, 125); ScrollingFrame.Parent = MainFrame; local UIListLayout = Instance.new("UIListLayout"); UIListLayout.Padding = UDim.new(0, 5); UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder; UIListLayout.Parent = ScrollingFrame; local TargetInfoLabel = Instance.new("TextLabel"); TargetInfoLabel.Name = "TargetInfoLabel"; TargetInfoLabel.Size = UDim2.new(1, 0, 0, 30); TargetInfoLabel.Position = UDim2.new(0, 0, 1, -30); TargetInfoLabel.BackgroundColor3 = Color3.fromRGB(35, 35, 45); TargetInfoLabel.Text = "Target: None"; TargetInfoLabel.TextColor3 = Color3.fromRGB(255, 255, 255); TargetInfoLabel.Font = Enum.Font.SourceSans; TargetInfoLabel.TextSize = 14; TargetInfoLabel.Parent = MainFrame; local BodyPartFrame = Instance.new("Frame"); BodyPartFrame.Name = "BodyPartFrame"; BodyPartFrame.Size = UDim2.new(0, 230, 0, 70); BodyPartFrame.Position = UDim2.new(0.5, -115, 0, 270); BodyPartFrame.BackgroundTransparency = 1; BodyPartFrame.Parent = MainFrame; local UIGridLayout = Instance.new("UIGridLayout"); UIGridLayout.CellSize = UDim2.new(0, 70, 0, 30); UIGridLayout.CellPadding = UDim2.new(0, 5, 0, 5); UIGridLayout.Parent = BodyPartFrame; local BodyPartButtons = {};
+
+
+
+local ToggleGUIButton = Instance.new("TextButton"); ToggleGUIButton.Name = "ToggleGUI_Mobile"; ToggleGUIButton.Size = UDim2.new(0, 80, 0, 35); ToggleGUIButton.Position = UDim2.new(1, -90, 0.3, 0); ToggleGUIButton.BackgroundColor3 = Color3.fromRGB(50, 50, 60); ToggleGUIButton.Text = "Toggle GUI"; ToggleGUIButton.TextColor3 = Color3.fromRGB(255, 255, 255); ToggleGUIButton.Font = Enum.Font.SourceSansBold; ToggleGUIButton.TextSize = 14; ToggleGUIButton.Parent = ScreenGui
+local AimButton = Instance.new("ImageButton"); AimButton.Name = "AimButton_Mobile"; AimButton.Size = UDim2.new(0, 70, 0, 70); AimButton.Position = UDim2.new(1, -85, 0.5, 0); AimButton.BackgroundColor3 = Color3.fromRGB(200, 50, 50); AimButton.BackgroundTransparency = 0.3; AimButton.Image = "rbxassetid://3926305904"; AimButton.ImageColor3 = Color3.fromRGB(255, 255, 255); AimButton.ScaleType = Enum.ScaleType.Fit; AimButton.Parent = ScreenGui
+
+
+local WarningFrame = Instance.new("Frame"); WarningFrame.Name = "WarningFrame"; WarningFrame.Size = UDim2.new(0, 300, 0, 180); WarningFrame.Position = UDim2.new(0.5, -150, 0.5, -90); WarningFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25); WarningFrame.BorderColor3 = Color3.fromRGB(255, 0, 0); WarningFrame.BorderSizePixel = 2; WarningFrame.Visible = true; WarningFrame.Parent = ScreenGui; local WarningTitle = Instance.new("TextLabel"); WarningTitle.Size = UDim2.new(1, 0, 0, 30); WarningTitle.BackgroundColor3 = Color3.fromRGB(255, 0, 0); WarningTitle.Text = "كلام مهم لازم تقراه عشان تستمتع بل  ايم بوت !"; WarningTitle.TextColor3 = Color3.fromRGB(255, 255, 255); WarningTitle.Font = Enum.Font.SourceSansBold; WarningTitle.TextSize = 20; WarningTitle.Parent = WarningFrame; local WarningText = Instance.new("TextLabel"); WarningText.Size = UDim2.new(0.9, 0, 1, -45)
+WarningText.TextWrapped = true
+WarningText.TextYAlignment = Enum.TextYAlignment.Top
+WarningText.AutomaticSize = Enum.AutomaticSize.Y WarningText.Position = UDim2.new(0.05, 0, 0, 35); WarningText.BackgroundTransparency = 1; WarningText.Text ="  شكرا ليك لتشغيل سكربت aimbot السكربت دلوقتي هيشتغل معاك ولكن السكربت ده بنسبه 80 في الميه هتقول ليه ده ايمبوت المفروض 100 في الميه هو فعلا 100 في الميه ولكن هو 80 بسبب الكاميرا و انت عارف ان ماب stealabrainrot بتمنع تحريك شخصيه علي الخصم فا دلوقتيهتحتاج تشغل سكربتين من صنعي سكربت SL متقلقش دي نسخه ال v6 مش هتحركك تلقائي دي بس هتثبت شخصتيك عشان الخطوه التانيه تنجح الخطوه التانيه هتشغل سكربت shift lock الي من صنعي و هتفتح settings و تخلي رقم علي 1.2 و تعمل لل شيفت on لو طبقت كل ده احب اطمنك انك كدا بتستعمل aimbot بنسبه 100 في الميه."; WarningText.TextColor3 = Color3.fromRGB(255, 200, 200); WarningText.Font = Enum.Font.SourceSans; WarningText.TextSize = 14; WarningText.TextWrapped = true; WarningText.Parent = WarningFrame; local CloseWarningButton = Instance.new("TextButton"); CloseWarningButton.Size = UDim2.new(0, 100, 0, 25); CloseWarningButton.Position = UDim2.new(0.5, -50, 1, -30); CloseWarningButton.BackgroundColor3 = Color3.fromRGB(80, 80, 80); CloseWarningButton.Text = "ok"; CloseWarningButton.TextColor3 = Color3.fromRGB(255, 255, 255); CloseWarningButton.Font = Enum.Font.SourceSansBold; CloseWarningButton.Parent = WarningFrame
+
+
+local function MakeDraggable(guiObject)
+    local dragging = false
+    local dragInput = nil
+    local dragStart = nil
+    local startPos = nil
+
+    guiObject.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = true
+            dragInput = input
+            dragStart = input.Position
+            startPos = guiObject.Position
+        end
+    end)
+
+    guiObject.InputEnded:Connect(function(input)
+        if input == dragInput then
+            dragging = false
+            dragInput = nil
+        end
+    end)
+
+    UserInputService.InputChanged:Connect(function(input)
+        if input == dragInput and dragging then
+            local delta = input.Position - dragStart
+            guiObject.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+        end
+    end)
+end
+
+
+function UpdatePlayerList() for i, v in pairs(ScrollingFrame:GetChildren()) do if v:IsA("TextButton") then v:Destroy() end end; local players = Players:GetPlayers(); ScrollingFrame.CanvasSize = UDim2.new(0, 0, 0, #players * 35); for i, player in pairs(players) do if player ~= LocalPlayer then local PlayerButton = Instance.new("TextButton"); PlayerButton.Name = player.Name; PlayerButton.Size = UDim2.new(1, -10, 0, 30); PlayerButton.BackgroundColor3 = Color3.fromRGB(50, 50, 60); PlayerButton.Text = player.Name; PlayerButton.TextColor3 = Color3.fromRGB(220, 220, 220); PlayerButton.Font = Enum.Font.SourceSans; PlayerButton.TextSize = 14; PlayerButton.Parent = ScrollingFrame; PlayerButton.MouseButton1Click:Connect(function() TargetPlayer = player; TargetInfoLabel.Text = "Target: " .. player.Name; TargetInfoLabel.TextColor3 = Color3.fromRGB(100, 255, 100) end) end end end
+function CreateBodyPartButtons() local parts = {"Head", "Torso", "HumanoidRootPart"}; for _, partName in pairs(parts) do local button = Instance.new("TextButton"); button.Name = partName; button.BackgroundColor3 = Color3.fromRGB(60, 60, 70); button.Text = partName; button.TextColor3 = Color3.fromRGB(255, 255, 255); button.Font = Enum.Font.SourceSans; button.TextSize = 12; button.Parent = BodyPartFrame; BodyPartButtons[partName] = button; button.MouseButton1Click:Connect(function() TargetPartName = partName; for name, btn in pairs(BodyPartButtons) do btn.BackgroundColor3 = (name == partName) and Color3.fromRGB(85, 85, 125) or Color3.fromRGB(60, 60, 70) end end) end; if BodyPartButtons[DEFAULT_TARGET_PART] then BodyPartButtons[DEFAULT_TARGET_PART].BackgroundColor3 = Color3.fromRGB(85, 85, 125) end end
+function GetTargetPart(character, partName) if partName == "Torso" then return character:FindFirstChild("UpperTorso") or character:FindFirstChild("Torso") else return character:FindFirstChild(partName) end end
+function AimbotLoop() if AimbotEnabled and IsAiming and TargetPlayer and TargetPlayer.Character then local myRoot = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart"); local targetPart = GetTargetPart(TargetPlayer.Character, TargetPartName); if myRoot and targetPart then if Camera.CameraType ~= Enum.CameraType.Scriptable then Camera.CameraType = Enum.CameraType.Scriptable end; local aimAtPosition = targetPart.CFrame.Position + Vector3.new(0, CAMERA_VERTICAL_OFFSET, 0); local cameraPivot = myRoot.CFrame * CFrame.new(CAMERA_SIDE_OFFSET, CAMERA_VERTICAL_OFFSET, 0); local cameraPosition = cameraPivot.Position - ((aimAtPosition - cameraPivot.Position).Unit * CAMERA_DISTANCE_BEHIND); local newCameraCFrame = CFrame.new(cameraPosition, aimAtPosition); Camera.CFrame = newCameraCFrame end else if Camera.CameraType == Enum.CameraType.Scriptable then Camera.CameraType = OriginalCameraType end end end
+
+
+
+local isDragging = false
+local dragThreshold = 5 
+ToggleGUIButton.InputBegan:Connect(function(input) isDragging = false end)
+ToggleGUIButton.InputChanged:Connect(function(input) if (input.Position - input.StartPosition).Magnitude > dragThreshold then isDragging = true end end)
+ToggleGUIButton.InputEnded:Connect(function(input) if not isDragging then MainFrame.Visible = not MainFrame.Visible end end)
+
+AimButton.InputBegan:Connect(function(input) if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then IsAiming = true; AimButton.BackgroundColor3 = Color3.fromRGB(50, 200, 50) end end)
+AimButton.InputEnded:Connect(function(input) if input.UserInputType == Enum.UserInputType.Touch or input.UserInputType == Enum.UserInputType.MouseButton1 then IsAiming = false; AimButton.BackgroundColor3 = Color3.fromRGB(200, 50, 50) end end)
+
+ToggleAimbotButton.MouseButton1Click:Connect(function() AimbotEnabled = not AimbotEnabled; if AimbotEnabled then ToggleAimbotButton.BackgroundColor3 = Color3.fromRGB(50, 200, 50); ToggleAimbotButton.Text = "Aimbot: ON" else ToggleAimbotButton.BackgroundColor3 = Color3.fromRGB(200, 50, 50); ToggleAimbotButton.Text = "Aimbot: OFF" end end)
+CloseWarningButton.MouseButton1Click:Connect(function() WarningFrame:Destroy() end)
+Players.PlayerAdded:Connect(UpdatePlayerList)
+Players.PlayerRemoving:Connect(UpdatePlayerList)
+RunService.RenderStepped:Connect(AimbotLoop)
+
+
+MakeDraggable(ToggleGUIButton)
+MakeDraggable(AimButton)
+
+UpdatePlayerList()
+CreateBodyPartButtons()
+
+
+    end
+})
+
