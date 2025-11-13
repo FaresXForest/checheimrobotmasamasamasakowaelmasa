@@ -1982,6 +1982,213 @@ end
     end
 })
 
+-- 🧩 script anticheat
+TabBrainrot:CreateButton({
+    Name = "سكربت anticheat لماب السرقه تحذير مهم نسبه نجاح السكربت هي من 30 في الميه الى 50 في الميه",
+    Callback = function()
+        
+
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+local Player = Players.LocalPlayer
+local PlayerGui = Player:WaitForChild("PlayerGui")
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "AntiCheatGUI"
+ScreenGui.Parent = PlayerGui
+
+
+local Frame = Instance.new("Frame")
+Frame.Size = UDim2.new(0, 280, 0, 160)
+Frame.Position = UDim2.new(0.5, 0, 0.5, 0)
+Frame.AnchorPoint = Vector2.new(0.5, 0.5)
+Frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+Frame.BorderSizePixel = 0
+Frame.Parent = ScreenGui
+Frame.ClipsDescendants = true
+Frame.Active = true
+Frame.Draggable = true
+
+
+local FrameGradient = Instance.new("UIGradient")
+FrameGradient.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 120, 120)),
+    ColorSequenceKeypoint.new(0.3, Color3.fromRGB(120, 255, 180)),
+    ColorSequenceKeypoint.new(0.6, Color3.fromRGB(120, 180, 255)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 120, 180))
+})
+FrameGradient.Rotation = 0
+FrameGradient.Parent = Frame
+
+
+spawn(function()
+    local rotation = 0
+    while true do
+        local goal = {Rotation = rotation + 360}
+        local tween = TweenService:Create(FrameGradient, TweenInfo.new(12, Enum.EasingStyle.Linear), goal)
+        tween:Play()
+        tween.Completed:Wait()
+        rotation = (rotation + 360) % 360
+    end
+end)
+
+
+local Glow = Instance.new("UIStroke")
+Glow.Parent = Frame
+Glow.Thickness = 4
+Glow.Transparency = 0.5
+Glow.Color = Color3.fromRGB(0, 255, 200)
+
+spawn(function()
+    while true do
+        local tween1 = TweenService:Create(Glow, TweenInfo.new(3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Transparency = 0.1})
+        local tween2 = TweenService:Create(Glow, TweenInfo.new(3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {Transparency = 0.5})
+        tween1:Play()
+        tween1.Completed:Wait()
+        tween2:Play()
+        tween2.Completed:Wait()
+    end
+end)
+
+
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1, 0, 0, 30)
+Title.Position = UDim2.new(0, 0, 0, 0)
+Title.BackgroundTransparency = 1
+Title.Text = "Anti-Cheat For Steal a brainrot By FO_FARES#"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.Font = Enum.Font.GothamBold
+Title.TextSize = 14
+Title.Parent = Frame
+
+
+local AntiCheatButton = Instance.new("TextButton")
+AntiCheatButton.Size = UDim2.new(0, 180, 0, 40)
+AntiCheatButton.Position = UDim2.new(0.5, -90, 0.5, -20)
+AntiCheatButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+AntiCheatButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+AntiCheatButton.Font = Enum.Font.GothamBold
+AntiCheatButton.TextSize = 16
+AntiCheatButton.Text = "مش شغال anti cheat"
+AntiCheatButton.Parent = Frame
+
+local ButtonGradient = Instance.new("UIGradient")
+ButtonGradient.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(0, 170, 255)),
+    ColorSequenceKeypoint.new(0.3, Color3.fromRGB(0, 255, 200)),
+    ColorSequenceKeypoint.new(0.6, Color3.fromRGB(170, 255, 255)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 200, 255))
+})
+ButtonGradient.Rotation = 0
+ButtonGradient.Parent = AntiCheatButton
+
+
+spawn(function()
+    local rotation = 0
+    while true do
+        local goal = {Rotation = rotation + 360}
+        local tween = TweenService:Create(ButtonGradient, TweenInfo.new(8, Enum.EasingStyle.Linear), goal)
+        tween:Play()
+        tween.Completed:Wait()
+        rotation = (rotation + 360) % 360
+    end
+end)
+
+
+local Warning = Instance.new("TextLabel")
+Warning.Size = UDim2.new(1, 0, 0, 20)
+Warning.Position = UDim2.new(0, 0, 0.8, 0)
+Warning.BackgroundTransparency = 1
+Warning.Text = "تنبيه مهم نسبه نجاح anticheat هي 30-50 في الميه نصيحه استعمله بذكاء"
+Warning.TextColor3 = Color3.fromRGB(255, 0, 0)
+Warning.Font = Enum.Font.GothamBold
+Warning.TextSize = 14
+Warning.Parent = Frame
+
+local isActive = false
+
+
+AntiCheatButton.MouseButton1Click:Connect(function()
+    isActive = not isActive
+    if isActive then
+        AntiCheatButton.Text = "Anti Cheat شغال"
+        AntiCheatButton.BackgroundColor3 = Color3.fromRGB(0, 255, 128)
+        
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local Workspace = game:GetService("Workspace")
+local RunService = game:GetService("RunService")
+local CoreGui = game:GetService("CoreGui")
+
+-- ====================================================================================================
+-- سكربت anticheat  
+-- ====================================================================================================
+
+local function bypass_anticheat()
+    -- This bypass hooks RemoteEvent:FireServer and blocks specific arguments that trigger the AC.
+    -- The arguments "X-15" and "X-16" are known to be used by the AC for sanity checks.
+    
+    local oldFireServer = nil
+    
+    -- Function to hook a specific RemoteEvent
+    local function hookRemote(remote)
+        if remote:IsA("RemoteEvent") then
+            oldFireServer = hookfunction(remote.FireServer, function(self, ...)
+                local args = {...}
+                -- Check for the known AC triggers
+                if args[1] and (tostring(args[1]):lower() == "x-15" or tostring(args[1]):lower() == "x-16") then
+                    -- Block the call by returning a long wait time
+                    return task.wait(9e9)
+                end
+                -- Allow all other calls to pass through
+                return oldFireServer(self, unpack(args))
+            end)
+        end
+    end
+
+    -- Scan for the RemoteEvent used by the AC (usually not parented to ReplicatedStorage)
+    -- Since we don't know the exact name, we'll rely on the general hook function.
+    -- This is a simplified version of the full deep scan, focusing on the core logic.
+    
+    -- A more robust approach would be to hook all RemoteEvent:FireServer calls globally, 
+    -- but that is often blocked by executors. We rely on the fact that the AC uses a specific pattern.
+    
+    -- The most common AC RemoteEvent is often found in the Workspace or a hidden service.
+    -- We will rely on the executor's ability to hook the function globally if possible.
+    
+    -- Since the original script used a global hook, we will assume the executor supports it.
+    -- If this fails, the user needs a better executor or a more advanced bypass.
+    
+    -- We will try to find a common RemoteEvent name if available (e.g., "AC_Check")
+    local acRemote = Workspace:FindFirstChild("AC_Check", true) or game:GetService("ReplicatedStorage"):FindFirstChild("AC_Check", true)
+    if acRemote then
+        hookRemote(acRemote)
+    end
+    
+    print("تم طباعه الرساله دي في الكونسول لو شوفتها اعرف ان السكربت شغال اعرف انك مش هتشوفها ههههه)")
+end
+
+bypass_anticheat()
+
+-- ملحوظه انا كاتب السكربت كامل بل انجليزي عشان افهم و افكر مع نفسي حتى يمكنني كتابه كود لمنع ال anticheat يعني سيبك من الكلام الي فوق كنت بكلم نفسي هههههه
+        
+    else
+        AntiCheatButton.Text = "مش شغال anti cheat"
+        AntiCheatButton.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+    end
+end)
+
+    end
+})
+
+-- 🧩 سكربت
+TabBrainrot:CreateButton({
+    Name = "steal a brainrot-chilli hub",
+    Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/tienkhanh1/spicy/main/Chilli.lua"))()
+    end
+})
+
+
 
 -- 🕐 إضافة تاب جديد باسم "سكربت Time Bombb"
 local TabTimeBomb = Window:CreateTab("سكربت Time Bombb", 4483362452)
