@@ -2569,7 +2569,34 @@ TabAFK:CreateButton({
     end
 })
 
+-- 🧩 سكربت
+TabAFK:CreateButton({
+    Name = "ANTI-AFK (بدون واجهات او اشعارات فقط يعمل في الخلفيه)",
+    Callback = function()
+        
 
+local mt = getrawmetatable(game)
+setreadonly(mt, false)
+
+
+local old = mt.__namecall
+mt.__namecall = newcclosure(function(self, ...)
+    local method = getnamecallmethod()
+    if tostring(self) == "Idled" or method == "FireServer" then
+        
+        return nil
+    end
+    return old(self, ...)
+end)
+
+
+while true do
+    task.wait(20)
+    
+    game:GetService("RunService").RenderStepped:Wait()
+end
+    end
+})
 
 
 
